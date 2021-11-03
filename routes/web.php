@@ -13,10 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\LandingController::class, 'index'])->name('landing.page');
+
+// Google Login
+Route::get('/auth/google', [App\Http\Controllers\OAuthController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/auth/google/callback', [App\Http\Controllers\OAuthController::class, 'googleCallback'])->name('google.callback');
+// END Google Login
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+
+// Data User
+Route::prefix('user')->group(function(){
+    /**Read */
+    Route::get('/', [App\Http\Controllers\UserController::class, 'index'])->name('user.data');
+    /**Edit */
+    Route::get('/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
+    /**Create */
+    Route::post('store', [App\Http\Controllers\UserController::class, 'store'])->name('user.store');
+});
+// END Data User

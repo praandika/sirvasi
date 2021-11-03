@@ -14,7 +14,7 @@ class BookingSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Booking::create([
+        \App\Models\Booking::insert([
             [
                 'user_id' => 1,
                 'guest_count' => 1,

@@ -20,7 +20,7 @@ class CreateRoomsTable extends Migration
             $table->integer('room_price');
             $table->integer('room_capacity');
             $table->string('bed_info');
-            $table->string('facilitiy');
+            $table->string('facility');
             $table->enum('room_status',['available','occupied']);
             $table->timestamps();
         });

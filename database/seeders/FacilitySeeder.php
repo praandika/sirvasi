@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class FacilitySeeder extends Seeder
 {
@@ -13,7 +14,7 @@ class FacilitySeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Facility::create([
+        \App\Models\Facility::insert([
             [
                 'facility_name' => 'Swimming Pool',
                 'facility_type' => 'Recreational',

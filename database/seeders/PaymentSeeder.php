@@ -14,7 +14,7 @@ class PaymentSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Payment::create([
+        \App\Models\Payment::insert([
             [
                 'user_id' => 1,
                 'booking_id' => 1,
