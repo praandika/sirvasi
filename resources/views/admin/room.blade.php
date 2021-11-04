@@ -1,25 +1,27 @@
 @extends('layouts.main')
-@section('title','Data User')
+@section('title','Data Kamar')
 
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Tabel User</h3>
+        <h3 class="card-title">Tabel Kamar</h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-        <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#tambahAdmin">
-            <i class="fas fa-plus"></i>
-                    Tambah
-        </button>
+        <a type="button" class="btn btn-success mb-3" href="{{ route('room.create') }}">
+            <i class="fas fa-plus"></i>Tambah
+        </a>
 
         <div class="table-responsive">
             <table id="tabel" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>Nama</th>
-                        <th>Kontak</th>
-                        <th>Akses</th>
+                        <th>Status</th>
+                        <th>Nama Kamar</th>
+                        <th>Tipe</th>
+                        <th>Harga</th>
+                        <th>Kapasitas</th>
+                        <th>Bed Info</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -31,17 +33,16 @@
                     @else
                         @foreach($data as $o)
                         <tr>
-                            <td>{{ $o->name }}</td>
-                            <td>{{ $o->phone }}</td>
+                            <td>{{ $o->room_status }}</td>
+                            <td>{{ $o->room_name }}</td>
+                            <td>{{ $o->room_type }}</td>
+                            <td>{{ $o->room_price }}</td>
+                            <td>{{ $o->room_capacity }}</td>
+                            <td>{{ $o->bed_info }}</td>
                             <td>
-                                @if($o->access == "admin")
-                                Administrator
-                                @else
-                                Pimpinan
-                                @endif
-                            </td>
-                            <td>
-                                <a href="{{ route('admin.edit',$o->id) }}" class="btn btn-primary">
+                                <a href="{{ route('room.show', $o->id) }}" class="btn btn-default">
+                                <i class="fas fa-eye"></i> Detail</a>
+                                <a href="{{ route('room.edit', $o->id) }}" class="btn btn-primary">
                                 <i class="fas fa-pencil-alt"></i> Edit</a>
                             </td>
                         </tr>
@@ -50,9 +51,12 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>Nama</th>
-                        <th>Kontak</th>
-                        <th>Akses</th>
+                        <th>Status</th>
+                        <th>Nama Kamar</th>
+                        <th>Tipe</th>
+                        <th>Harga</th>
+                        <th>Kapasitas</th>
+                        <th>Bed Info</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>

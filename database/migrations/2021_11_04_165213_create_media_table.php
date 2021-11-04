@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBookingsTable extends Migration
+class CreateMediaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateBookingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bookings', function (Blueprint $table) {
+        Schema::create('media', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
             $table->unsignedInteger('room_id');
-            $table->integer('guest_count');
-            $table->date('check_in');
-            $table->date('check_out');
-            $table->integer('total');
-            $table->enum('booking_status',['waiting','success','cancel']);
+            $table->string('file_name');
+            $table->string('file_type');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ class CreateBookingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bookings');
+        Schema::dropIfExists('media');
     }
 }

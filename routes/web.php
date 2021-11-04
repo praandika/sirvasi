@@ -25,12 +25,29 @@ Auth::routes();
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
 // Data User
-Route::prefix('user')->group(function(){
+Route::prefix('admin')->group(function(){
     /**Read */
-    Route::get('/', [App\Http\Controllers\UserController::class, 'index'])->name('user.data');
-    /**Edit */
-    Route::get('/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
+    Route::get('/', [App\Http\Controllers\UserController::class, 'index'])->name('admin.data');
     /**Create */
-    Route::post('store', [App\Http\Controllers\UserController::class, 'store'])->name('user.store');
+    Route::post('store', [App\Http\Controllers\UserController::class, 'store'])->name('admin.store');
+    /**Edit */
+    Route::get('/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('admin.edit');
+    /**Update */
+    Route::post('update', [App\Http\Controllers\UserController::class, 'update'])->name('admin.update');
+
+    /**Change Password Admin */
+    Route::post('adminpass', [App\Http\Controllers\UserController::class, 'adminpass'])->name('admin.password');
 });
 // END Data User
+
+// Data Tamu
+Route::get('guest', [App\Http\Controllers\UserController::class, 'guest'])->name('guest.data');
+// END Data Tamu
+
+// Data Kamar
+Route::resource('room', App\Http\Controllers\RoomController::class);
+// END Data Kamar
+
+// Data Fasilitas
+Route::resource('facilities', App\Http\Controllers\FacilityController::class);
+// END Data Fasilitas

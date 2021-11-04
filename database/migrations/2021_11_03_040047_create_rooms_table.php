@@ -21,6 +21,8 @@ class CreateRoomsTable extends Migration
             $table->integer('room_capacity');
             $table->string('bed_info');
             $table->string('facility');
+            $table->string('banner');
+            $table->string('post_img');
             $table->enum('room_status',['available','occupied']);
             $table->timestamps();
         });

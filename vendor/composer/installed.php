@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '6b858e4de8938ffe7974e5192748a0f7c02567b6',
+        'reference' => 'fe858278cc92c7c512fbbb6bed586a1aaa055125',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -92,6 +92,15 @@
             'install_path' => __DIR__ . '/../egulias/email-validator',
             'aliases' => array(),
             'reference' => '0dbf5d78455d4d6a41d186da50adc1122ec066f4',
+            'dev_requirement' => false,
+        ),
+        'enyo/dropzone' => array(
+            'pretty_version' => 'v5.9.3',
+            'version' => '5.9.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../enyo/dropzone',
+            'aliases' => array(),
+            'reference' => '286b2dc1f1195bd12169e4c9d5f91cfbe46e245f',
             'dev_requirement' => false,
         ),
         'facade/flare-client-php' => array(
@@ -409,7 +418,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '6b858e4de8938ffe7974e5192748a0f7c02567b6',
+            'reference' => 'fe858278cc92c7c512fbbb6bed586a1aaa055125',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(

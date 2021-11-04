@@ -15,7 +15,9 @@ class FacilityController extends Controller
      */
     public function index()
     {
-        //
+        $data = Facility::all();
+        $count = count($data);
+        return view('admin.facilities', compact('data', 'count'));
     }
 
     /**
@@ -25,7 +27,7 @@ class FacilityController extends Controller
      */
     public function create()
     {
-        //
+        // 
     }
 
     /**
@@ -34,9 +36,11 @@ class FacilityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {
-        //
+        Facility::create($req->all());
+        toast('Data berhasil disimpan','success')->autoClose(5000);
+        return redirect()->back();
     }
 
     /**
@@ -47,7 +51,7 @@ class FacilityController extends Controller
      */
     public function show(Facility $facility)
     {
-        //
+        
     }
 
     /**
@@ -58,7 +62,7 @@ class FacilityController extends Controller
      */
     public function edit(Facility $facility)
     {
-        //
+        return view('admin.edit.facilities_edit', compact('facility'));
     }
 
     /**
@@ -68,9 +72,11 @@ class FacilityController extends Controller
      * @param  \App\Models\Facility  $facility
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Facility $facility)
+    public function update(Request $req, Facility $facility)
     {
-        //
+        $facility->update($req->all());
+        toast('Data berhasil diubah','success')->autoClose(5000);
+        return redirect()->route('facilities.index');
     }
 
     /**
