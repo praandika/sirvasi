@@ -17,24 +17,25 @@ class OAuthController extends Controller
     public function googleCallback(){
         try {
             $user = Socialite::driver('google')->user();
-            $cekUser = User::where('google_id', $user->getId())->first();
+            $cekUser = User::where('google_id', $user->id)->first();
             if ($cekUser) {
                 Auth::login($cekUser);
-                return redirect('/');
+                return view('landing');
             }else{
                 $newUser = User::create([
-                    'name' => $user->getName(),
-                    'username' => $user->getEmail(),
-                    'email' => $user->getEmail(),
-                    'google_id' => $user->getId(),
-                    'avatar' => $user->getAvatar(),
+                    'name' => $user->name,
+                    'username' => $user->email,
+                    'email' => $user->email,
+                    'google_id' => $user->id,
+                    'avatar' => $user->avatar,
                     'password' => bcrypt('12345678')
                 ]);
                 Auth::login($newUser);
-                return redirect('/');
+                return view('landing');
             }
         } catch (\Throwable $th) {
-            //throw $th;
+            return redirect('auth/google');
+            dd($user);
         }
     }
 }

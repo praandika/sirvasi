@@ -10,6 +10,12 @@
             <form action="{{ route('user.store') }}" method="post">
                 @csrf
                 <div class="modal-body">
+                    <!-- Nama -->
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                    </div>
+
                     <!-- Email -->
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
@@ -41,7 +47,7 @@
                     <!-- Confirm -->
                     <div class="form-group">
                         <label for="confirm">Confirm Password</label>
-                        <input type="text" class="form-control" id="confirm" placeholder="Confirm password">
+                        <input type="text" class="form-control" id="confirm" placeholder="Confirm password" name="confirm">
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">

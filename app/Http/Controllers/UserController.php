@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -21,21 +22,23 @@ class UserController extends Controller
     }
 
     public function store(Request $req){
-        $pass = $req->input('password');
-        $confirm = $req->input('confirm');
+        $pass = $req->password;
+        $confirm = $req->confirm;
 
         if ($confirm === $pass) {
-            User::insert([
-                'email' => $req->input('email'),
-                'username' => $req->input('username'),
-                'phone' => $req->input('phone'),
-                'access' => $req->input('access'),
-                'password' => bcrypt($req->input('password')),
-            ])->save();
-
-            return redirect('user.data')->toast('Success Toast','success')->autoClose(5000);
-        }else{
+            $data = new User;
+            $data->name = $req->name;
+            $data->email = $req->email;
+            $data->username = $req->username;
+            $data->phone = $req->phone;
+            $data->access = $req->access;
+            $data->password = $req->password;
+            $data->save();
+            toast('Success Toast','success')->autoClose(5000);
             return redirect()->back();
+            
+        }else{
+            return redirect()->back()->with('errors', 'Password tidak cocok!');
         }
     }
 }
