@@ -9,7 +9,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-        <form action="{{ route('room.store') }}" method="POST">
+        <form action="{{ route('room.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="modal-body">
                 <div class="row">
@@ -75,17 +75,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label>Fasilitas</label>
-                            <select class="form-control select2" name="facility" multiple="multiple"
-                                value="{{ old('facility') }}" data-placeholder="Enter facilities" required>
-                                @foreach($data as $o)
-                                <option value="{{ $o->facility_name }}">{{ $o->facility_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+                    
                 </div>
 
                 <div class="row">
@@ -98,10 +88,10 @@
                     </div>
 
                     <div class="col-lg-6">
-                    <label style="display: block;">Upload Gambar Post</label>
+                    <label style="display: block;">Upload Gambar Unggulan</label>
                         <div class="input-file mb-3">
                                 <input type="file" class="dropzone" id="photo-post"
-                                        name="post_img" style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
+                                        name="featured_img" style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
                         </div>
                     </div>
                 </div>
@@ -113,7 +103,7 @@
                         <label style="display: block;">Gambar Detail Kamar</label>
                         <div class="input-file mb-3">
                                 <input type="file" class="dropzone" id="photo-post"
-                                        name="detail_img[]" style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
+                                        name="post_img[]" style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
                         </div>
                             
                             <div class="wrapper-field"></div>
