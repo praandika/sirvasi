@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Room;
 use App\Models\Facility;
+use App\Models\Media;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -38,9 +39,12 @@ class RoomController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {
-        //
+            Room::create($req->all());
+
+            toast('Data berhasil disimpan','success')->autoClose(5000);
+            return redirect()->route('room.create');
     }
 
     /**

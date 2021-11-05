@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('title','Kamar Baru')
 
+
 @section('content')
 <div class="card">
     <div class="card-header">
@@ -8,10 +9,9 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-        <form action="{{ route('admin.store') }}" method="post" class="dropzone">
+        <form action="{{ route('room.store') }}" method="POST">
             @csrf
             <div class="modal-body">
-                <!-- Nama -->
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="form-group">
@@ -90,54 +90,36 @@
 
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Upload Banner</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input dropzone" id="banner">
-                                <label class="custom-file-label" for="banner">Choose files
-                                </label>
-                            </div>
+                    <label style="display: block;">Upload Banner</label>
+                        <div class="input-file mb-3">
+                                <input type="file" class="dropzone" id="photo-post"
+                                        name="banner" style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
                         </div>
                     </div>
 
                     <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Upload Gambar Post</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input dropzone" id="photo-post">
-                                <label class="custom-file-label" for="photo-post">Choose files
-                                </label>
-                            </div>
+                    <label style="display: block;">Upload Gambar Post</label>
+                        <div class="input-file mb-3">
+                                <input type="file" class="dropzone" id="photo-post"
+                                        name="post_img" style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
                         </div>
                     </div>
                 </div>
 
-
-                <fieldset>
+                <hr>
                     <legend>Photos</legend>
-
-
                     <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label>Gambar Detail Kamar</label>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input dropzone" id="photo-post"
-                                        name="file_name[]">
-                                    <label class="custom-file-label" for="photo-post">Choose files
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="add-gambar" id="add-gambar"></div>
-
-                            <button class="btn btn-primary" id="add-gambar"> <i class="fa fa-plus"></i> </button>
-                            <button class="btn btn-danger" id="remove-gambar"> <i class="fa fa-times"></i> </button>
+                        <div class="col-12" id="upload-photo">
+                        <label style="display: block;">Gambar Detail Kamar</label>
+                        <div class="input-file mb-3">
+                                <input type="file" class="dropzone" id="photo-post"
+                                        name="detail_img[]" style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
+                        </div>
+                            
+                            <div class="wrapper-field"></div>
+                            <a class="btn btn-success mt-3" id="addfield"><i class="fas fa-plus"></i> Photos</a>
                         </div>
                     </div>
-
-                </fieldset>
-
             </div>
 
 
@@ -161,19 +143,23 @@
 </script>
 
 <script>
-    $(document).ready(function () {
-        $("#add-gambar").click(function () {
-            $('#add-gambar').append(
-                `<div class="form-group">
-                    <label>Gambar Detail Kamar</label>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input dropzone" id="photo-post" name="file_name[]">
-                            <label class="custom-file-label" for="photo-post">Choose files</label>
-                        </div>
+
+    $(document).ready(function(){
+        $('#addfield').click(function(){
+            $('.wrapper-field').append(
+                `<div class="input-file mb-3">
+                    <input type="file" class="dropzone" id="photo-post"
+                                        name="file_name[]" style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
+                    <a class="removefield btn btn-danger"><i class="fas fa-times"></i></a>
                 </div>`
             )
         });
     });
 
+    $(document).ready(function(){
+        $("body").on("click",".removefield", function(){
+            $(this).parents(".input-file").remove();
+        });
+    });
 </script>
 @endpush
