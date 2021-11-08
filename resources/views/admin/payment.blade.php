@@ -1,10 +1,10 @@
 @extends('layouts.main')
-@section('title','Data Reservasi')
+@section('title','Data Transaksi')
 
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Tabel Reservasi</h3>
+        <h3 class="card-title">Tabel Transaksi</h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
@@ -14,11 +14,12 @@
                     <tr>
                         <th>#</th>
                         <th>Status</th>
+                        <th>Reservasi</th>
                         <th>Tamu</th>
-                        <th>Jumlah Tamu</th>
-                        <th>Kamar</th>
                         <th>Check In</th>
-                        <th>Check Out</th>
+                        <th>Total</th>
+                        <th>Sisa Pembayaran</th>
+                        <th>Tipe Transaksi</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -27,30 +28,31 @@
                     @forelse($data as $o)
                     <tr>
                         <td>{{ $no++ }}</td>
-                        <td>{{ $o->reservation_status }}</td>
+                        <td>{{ $o->payment_status }}</td>
+                        <td><a href="{{ route('reservation.show',$o->reservation_id) }}">{{ $o->reservation->book_code }}</a></td>
                         <td>{{ $o->user->name }}</td>
-                        <td>{{ $o->room->room_name }}</td>
-                        <td>{{ $o->guest_count }} Person</td>
-                        <td>{{ $o->check_in }}</td>
-                        <td>{{ $o->check_out }}</td>
-                        @if(($o->reservation_status == "cancel") || ($o->reservation_status == "success"))
+                        <td>{{ $o->reservation->check_in }}</td>
+                        <td>{{ $o->amount }}</td>
+                        <td>{{ $o->remaining_amount }}</td>
+                        <td>{{ $o->payment_type }}</td>
+                        @if($o->payment_status == "paid")
                         <td>
                             <button type="button" class="btn btn-success mb-3" data-toggle="modal"
-                                data-target="#detailReservation{{ $o->id }}">
+                                data-target="#detailPayment{{ $o->id }}">
                                 <i class="fas fa-eyes"></i>
                                 Detail
                             </button>
                         </td>
                         @else
                         <td>
-                            <a href="{{ route('reservation.edit',$o->id) }}" class="btn btn-primary">
-                                <i class="fas fa-logout-alt"></i> Check Out</a>
+                            <a href="{{ route('payment.edit',$o->id) }}" class="btn btn-primary">
+                                <i class="fas fa-logout-alt"></i> Bayar</a>
                         </td>
                         @endif
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="8" class="text-center">no data available</td>
+                        <td colspan="9" class="text-center">no data available</td>
                     </tr>
                     @endforelse
                 </tbody>
@@ -58,11 +60,12 @@
                     <tr>
                         <th>#</th>
                         <th>Status</th>
+                        <th>Reservasi</th>
                         <th>Tamu</th>
-                        <th>Jumlah Tamu</th>
-                        <th>Kamar</th>
                         <th>Check In</th>
-                        <th>Check Out</th>
+                        <th>Total</th>
+                        <th>Sisa Pembayaran</th>
+                        <th>Tipe Transaksi</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>
@@ -72,7 +75,7 @@
     <!-- /.card-body -->
 </div>
 <!-- /.card -->
-@include('admin.component.modal.detailreservation')
+@include('admin.component.modal.detailpayment')
 
 @endsection
 

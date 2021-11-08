@@ -16,10 +16,8 @@ class UserController extends Controller
     }
 
     public function index(){
-       
         $data = User::where('access','admin')->orWhere('access','head')->get();
-        $count = count($data);
-        return view('admin.user', compact('data','count'));
+        return view('admin.user', compact('data'));
     }
 
     public function store(Request $req){
@@ -43,7 +41,7 @@ class UserController extends Controller
                 $data->access = $req->access;
                 $data->password = $req->password;
                 $data->save();
-                toast('Data berhasil disimpan','success')->autoClose(5000);
+                toast('Data berhasil disimpan','success');
                 return redirect()->back();
     
             }else{
@@ -66,7 +64,7 @@ class UserController extends Controller
         $data->phone = $req->phone;
         $data->access = $req->access;
         $data->save();
-        toast('Data berhasil diubah','success')->autoClose(5000);
+        toast('Data berhasil diubah','success');
         return redirect()->route('admin.data');
     }
 
@@ -80,7 +78,7 @@ class UserController extends Controller
         if (Hash::check($old, $data->password)) {
             $data->password = bcrypt($new);
             $data->save();
-            toast('Password changed','success')->autoClose(5000);
+            toast('Password changed','success');
             return redirect()->route('admin.data');
         } else {
             alert()->warning('Warning','Password salah!');

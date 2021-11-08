@@ -26,12 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if($count == 0)
-                        <tr>
-                            <td colspan="4" class="text-center">no data available</td>
-                        </tr>
-                    @else
-                        @foreach($data as $o)
+                        @forelse($data as $o)
                         <tr>
                             <td>{{ $o->room_status }}</td>
                             <td>{{ $o->room_name }}</td>
@@ -48,8 +43,11 @@
                                 <i class="fas fa-pencil-alt"></i></a>
                             </td>
                         </tr>
-                        @endforeach
-                    @endif
+                        @empty
+                        <tr>
+                            <td colspan="8" class="text-center">no data available</td>
+                        </tr>
+                        @endforelse
                 </tbody>
                 <tfoot>
                     <tr>

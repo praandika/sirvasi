@@ -12,6 +12,7 @@
             <table id="tabel" class="table table-bordered table-striped">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Nama</th>
                         <th>Kontak</th>
                         <th>Email</th>
@@ -21,26 +22,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if($count == 0)
-                        <tr>
-                            <td colspan="4" class="text-center">no data available</td>
-                        </tr>
-                    @else
-                        @foreach($data as $o)
-                        <tr>
-                            <td>{{ $o->name }}</td>
-                            <td>{{ $o->phone }}</td>
-                            <td>{{ $o->email }}</td>
-                            <td>{{ $o->address }}</td>
-                            <td>{{ $o->country }}</td>
-                            <td>{{ $o->state }}</td>
-                        </tr>
-                        @endforeach
-                    @endif
+                    @php($no = 1)
+                    @forelse($data as $o)
+                    <tr>
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $o->name }}</td>
+                        <td>{{ $o->phone }}</td>
+                        <td>{{ $o->email }}</td>
+                        <td>{{ $o->address }}</td>
+                        <td>{{ $o->country }}</td>
+                        <td>{{ $o->province }}</td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="7" class="text-center">no data available</td>
+                    </tr>
+                    @endforelse
                 </tbody>
                 <tfoot>
                     <tr>
-                    <th>Nama</th>
+                        <th>#</th>
+                        <th>Nama</th>
                         <th>Kontak</th>
                         <th>Email</th>
                         <th>Alamat</th>
@@ -67,5 +69,6 @@
             "info": true,
         });
     });
+
 </script>
 @endpush

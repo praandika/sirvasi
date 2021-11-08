@@ -39,7 +39,7 @@ class FacilityController extends Controller
     public function store(Request $req)
     {
         Facility::create($req->all());
-        toast('Data berhasil disimpan','success')->autoClose(5000);
+        toast('Data berhasil disimpan','success');
         return redirect()->back();
     }
 
@@ -75,7 +75,7 @@ class FacilityController extends Controller
     public function update(Request $req, Facility $facility)
     {
         $facility->update($req->all());
-        toast('Data berhasil diubah','success')->autoClose(5000);
+        toast('Data berhasil diubah','success');
         return redirect()->route('facilities.index');
     }
 

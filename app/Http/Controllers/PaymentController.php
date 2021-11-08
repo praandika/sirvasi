@@ -8,14 +8,25 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
-        //
+        $data = Payment::orderBy('created_at', 'desc')->get();
+        $detail = Payment::join('users','payments.user_id','=','users.id')
+        ->join('reservations','payments.reservation_id','=','reservations.id')
+        ->select('payments.*','reservations.*','users.*')
+        ->get();
+
+        return view('admin.payment', compact('data','detail'));
     }
 
     /**

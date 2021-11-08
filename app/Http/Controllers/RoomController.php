@@ -20,8 +20,7 @@ class RoomController extends Controller
     public function index()
     {
         $data = Room::orderBy('id','desc')->get();
-        $count = count($data);
-        return view('admin.room', compact('data','count'));
+        return view('admin.room', compact('data'));
     }
 
     /**
@@ -65,7 +64,7 @@ class RoomController extends Controller
         $data->featured_img = $featured_file;
         $data->save();
 
-        toast('Data berhasil disimpan','success')->autoClose(5000);
+        toast('Data berhasil disimpan','success');
         return redirect()->route('room.index');
     }
 
@@ -94,7 +93,7 @@ class RoomController extends Controller
             ]);
         }
 
-        toast('Fasilitas berhasil ditambah','success')->autoClose(5000);
+        toast('Fasilitas berhasil ditambah','success');
         return redirect()->route('room.index');
     }
 
@@ -116,7 +115,7 @@ class RoomController extends Controller
             }
         }
 
-        toast('Foto berhasil ditambah','success')->autoClose(5000);
+        toast('Foto berhasil ditambah','success');
         return redirect()->route('room.index');
 
         // for ($i=0; $i < count($req->post_img); $i++) { 
@@ -228,7 +227,7 @@ class RoomController extends Controller
             $room->update();
         }
         
-        toast('Data berhasil diubah','success')->autoClose(5000);
+        toast('Data berhasil diubah','success');
         return redirect()->back();
     }
 

@@ -47,8 +47,7 @@
                                 <span class="input-group-text">Rp</span>
                             </div>
                             <input type="number" class="form-control" id="room_price" placeholder="Enter room's price"
-                                name="room_price" value="{{ old('room_price') }}" required>
-
+                                name="room_price" value="{{ old('room_price') }}" min="0" required>
                         </div>
                     </div>
                 </div>
@@ -59,7 +58,7 @@
                         <div class="input-group mb-3">
                             <input type="number" class="form-control" id="room_capacity"
                                 placeholder="Enter room's capacity" name="room_capacity"
-                                value="{{ old('room_capacity') }}" required>
+                                value="{{ old('room_capacity') }}" min="0" required>
                             <div class="input-group-append">
                                 <span class="input-group-text">Person</span>
                             </div>
