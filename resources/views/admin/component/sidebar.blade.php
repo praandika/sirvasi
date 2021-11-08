@@ -65,9 +65,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('reservation.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Data Pemesanan</p>
+                                <p>Data Reservasi</p>
                             </a>
                         </li>
                         <li class="nav-item">

@@ -40,10 +40,12 @@
                             <td>{{ $o->room_capacity }}</td>
                             <td>{{ $o->bed_info }}</td>
                             <td>
-                                <a href="{{ route('room.show', $o->id) }}" class="btn btn-default">
-                                <i class="fas fa-eye"></i> Detail</a>
-                                <a href="{{ route('room.edit', $o->id) }}" class="btn btn-primary">
-                                <i class="fas fa-pencil-alt"></i> Edit</a>
+                                <a href="{{ route('room.facilities', $o->id) }}" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Tambah Fasilitas">
+                                <i class="fas fa-swimming-pool"></i></a>
+                                <a href="{{ route('room.photos', $o->id) }}" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Tambah Photo Kamar">
+                                <i class="fas fa-images"></i></a>
+                                <a href="{{ route('room.edit', $o->id) }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Edit Kamar">
+                                <i class="fas fa-pencil-alt"></i></a>
                             </td>
                         </tr>
                         @endforeach
@@ -68,9 +70,6 @@
 <!-- /.card -->
 @endsection
 
-@include('admin.component.modal.tambahuser')
-@include('admin.component.modal.adminpass')
-
 @push('after-script')
 <script>
     $(function () {
@@ -82,5 +81,11 @@
             "info": true,
         });
     });
+</script>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 </script>
 @endpush

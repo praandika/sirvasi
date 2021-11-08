@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,3 +52,26 @@ Route::resource('room', App\Http\Controllers\RoomController::class);
 // Data Fasilitas
 Route::resource('facilities', App\Http\Controllers\FacilityController::class);
 // END Data Fasilitas
+
+// Fasilitas Kamar
+Route::get('room-facilities/{id}/add', [App\Http\Controllers\RoomController::class, 'roomFacilities'])->name('room.facilities');
+
+Route::post('room-detail-add', [App\Http\Controllers\RoomController::class, 'roomFacilitiesStore'])->name('add.facilities');
+// END Fasilitas Kamar
+
+// Foto Kamar
+Route::get('room-photos/{id}/add', [App\Http\Controllers\RoomController::class, 'roomPhotos'])->name('room.photos');
+
+Route::post('room-photos-add', [App\Http\Controllers\RoomController::class, 'roomPhotosStore'])->name('add.photos');
+// END Foto Kamar
+
+
+// Pemesanan
+Route::resource('reservation', App\Http\Controllers\ReservationController::class);
+// END Pemesanan
+
+Route::get('/notification', function(){
+    return view('notification');
+});
+
+Route::get('/send-notification',[NotificationController::class, 'sendReservationNotification']);

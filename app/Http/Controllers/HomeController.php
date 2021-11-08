@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        $notifications = auth()->user()->unreadNotifications;
+        return view('welcome', compact('notifications'));
     }
 }

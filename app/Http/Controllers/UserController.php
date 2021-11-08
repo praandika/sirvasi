@@ -16,6 +16,7 @@ class UserController extends Controller
     }
 
     public function index(){
+       
         $data = User::where('access','admin')->orWhere('access','head')->get();
         $count = count($data);
         return view('admin.user', compact('data','count'));

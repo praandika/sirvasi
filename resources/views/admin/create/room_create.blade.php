@@ -1,7 +1,6 @@
 @extends('layouts.main')
 @section('title','Kamar Baru')
 
-
 @section('content')
 <div class="card">
     <div class="card-header">
@@ -74,45 +73,26 @@
                                 name="bed_info" value="{{ old('bed_info') }}" required>
                         </div>
                     </div>
-
-                    
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6">
-                    <label style="display: block;">Upload Banner</label>
+                        <label style="display: block;">Upload Banner</label>
                         <div class="input-file mb-3">
-                                <input type="file" class="dropzone" id="photo-post"
-                                        name="banner" style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
+                            <input type="file" class="dropzone" id="photo-post" name="banner"
+                                style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
                         </div>
                     </div>
 
                     <div class="col-lg-6">
-                    <label style="display: block;">Upload Gambar Unggulan</label>
+                        <label style="display: block;">Upload Gambar Unggulan</label>
                         <div class="input-file mb-3">
-                                <input type="file" class="dropzone" id="photo-post"
-                                        name="featured_img" style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
+                            <input type="file" class="dropzone" id="photo-post" name="featured_img"
+                                style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
                         </div>
                     </div>
                 </div>
-
-                <hr>
-                    <legend>Photos</legend>
-                    <div class="row">
-                        <div class="col-12" id="upload-photo">
-                        <label style="display: block;">Gambar Detail Kamar</label>
-                        <div class="input-file mb-3">
-                                <input type="file" class="dropzone" id="photo-post"
-                                        name="post_img[]" style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
-                        </div>
-                            
-                            <div class="wrapper-field"></div>
-                            <a class="btn btn-success mt-3" id="addfield"><i class="fas fa-plus"></i> Photos</a>
-                        </div>
-                    </div>
             </div>
-
-
 
             <div class="modal-footer justify-content-between">
                 <button type="reset" class="btn btn-default">Reset</button>
@@ -123,9 +103,11 @@
     <!-- /.card-body -->
 </div>
 <!-- /.card -->
+
 @endsection
 
 @push('after-script')
+
 <script>
     //Initialize Select2 Elements
     $('.select2').select2()
@@ -133,9 +115,8 @@
 </script>
 
 <script>
-
-    $(document).ready(function(){
-        $('#addfield').click(function(){
+    $(document).ready(function () {
+        $('#addfield').click(function () {
             $('.wrapper-field').append(
                 `<div class="input-file mb-3">
                     <input type="file" class="dropzone" id="photo-post"
@@ -146,9 +127,48 @@
         });
     });
 
-    $(document).ready(function(){
-        $("body").on("click",".removefield", function(){
+    $(document).ready(function () {
+        $("body").on("click", ".removefield", function () {
             $(this).parents(".input-file").remove();
+        });
+    });
+</script>
+
+<script>
+    // Create Facility
+    $('#btn-add').click(function(e){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        e.preventDefault();
+
+        let formData = {
+            hook: $('#hook').val(),
+            facility: $('#facility').val(),
+        };
+
+        let state = $('#btn-add').val();
+        let type = "POST";
+        let facility_id = $('#facility_id').val();
+        let ajaxurl = 'room';
+
+        $.ajax({
+            type: type,
+            url: ajaxurl,
+            data : formData,
+            dataType: 'json',
+            success: function(data){
+                let facilities = `
+                <tr id="facilities${data.id}">
+                    <td>${data.facility}</td>
+                    <td>Hapus</td>
+                </tr>`
+            },
+            error: function(data){
+                alert(data);
+            }
         });
     });
 </script>
