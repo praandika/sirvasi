@@ -64,6 +64,7 @@ class ReservationController extends Controller
         $cekUser = User::where('email',$req->email)->first();
 
         if ($cekUser) {
+            
 
             $reservation->book_code = $generateBook;
             $reservation->room_id = $req->room_id;
