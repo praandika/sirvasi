@@ -72,3 +72,11 @@ Route::get('/book', [App\Http\Controllers\ReservationController::class, 'book'])
 // Transaksi
 Route::resource('payment', App\Http\Controllers\PaymentController::class);
 // END Transaksi
+
+// Validasi
+Route::get('validation', [App\Http\Controllers\ValidationController::class, 'validation'])->name('validation');
+// END Validasi
+
+// Cari Kamar
+Route::get('search/', [App\Http\Controllers\LandingController::class, 'search'])->name('search');
+// END Cari Kamar

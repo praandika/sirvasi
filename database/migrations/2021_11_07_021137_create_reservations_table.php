@@ -21,7 +21,6 @@ class CreateReservationsTable extends Migration
             $table->integer('guest_count');
             $table->date('check_in');
             $table->date('check_out');
-            $table->integer('total');
             $table->enum('reservation_status',['waiting','arrived','success','cancel']);
             $table->text('note')->nullable();
             $table->timestamps();

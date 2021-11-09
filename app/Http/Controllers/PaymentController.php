@@ -20,13 +20,12 @@ class PaymentController extends Controller
     
     public function index()
     {
-        $data = Payment::orderBy('created_at', 'desc')->get();
-        $detail = Payment::join('users','payments.user_id','=','users.id')
+        $data = Payment::join('users','payments.user_id','=','users.id')
         ->join('reservations','payments.reservation_id','=','reservations.id')
-        ->select('payments.*','reservations.*','users.*')
+        ->orderBy('reservations.check_in','desc')
         ->get();
 
-        return view('admin.payment', compact('data','detail'));
+        return view('admin.payment', compact('data'));
     }
 
     /**

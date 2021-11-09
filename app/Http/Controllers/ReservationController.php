@@ -33,8 +33,10 @@ class ReservationController extends Controller
     public function book(){
         $user = User::where('access','user')->get();
         $room = Room::where('room_status','available')->get();
+        $now = Carbon::now('GMT+8')->format('YmdHis');
+        $book_code = "Book".$now."";
         
-        return view('admin.book',compact('user','room'));
+        return view('admin.book',compact('user','room','book_code'));
     }
 
     /**
@@ -55,70 +57,84 @@ class ReservationController extends Controller
      */
     public function store(Request $req)
     {
-        $now = Carbon::now('GMT+8')->format('YmdHis');
-        $generateBook = "Book".$now."";
         $user = new User;
         $reservation = New Reservation;
         $payment = new Payment;
 
+        // Hitung Sisa bayar
+        $amount = $req->room_price;
+        $pay = $req->pay;
+        $remaining_amount = $amount - $pay;
+
+        // Menentukan payment status
+        if ($remaining_amount == $amount) {
+            $payment_status = "unpaid";
+        } elseif ($remaining_amount == 0) {
+            $payment_status = "paid";
+        } elseif ($remaining_amount < 0) {
+            $payment_status = "paid";
+        } else {
+            $payment_status = "paid half";
+        }
+
         $cekUser = User::where('email',$req->email)->first();
 
         if ($cekUser) {
-            
-
-            $reservation->book_code = $generateBook;
+            $reservation->book_code = $req->book_code;
             $reservation->room_id = $req->room_id;
-            $reservation->user_id = $cekUser;
+            $reservation->user_id = $req->user_id;
             $reservation->check_in = $req->check_in;
             $reservation->check_out = $req->check_out;
             $reservation->guest_count = $req->guest_count;
             $reservation->note = $req->note;
             $reservation->save();
 
-            $getReservation = Reservation::where('book_code',$generateBook)->pluck('id');
-
-            $payment->user_id = $cekUser;
-            $payment->reservation_id = $getReservation;
-            $payment->invoice = $generateBook;
-            $payment->type = $req->payment_type;
-            $payment->amount = $req->amount;
-            $payment->remaining = $req->remaining_amount;
-            $payment->status = $req->payment_status;
+            $getReservation = Reservation::where('book_code',$req->book_code)->first('id');
+            
+            $payment->user_id = $req->user_id;
+            $payment->reservation_id = $getReservation->id;
+            $payment->invoice = $req->book_code;
+            $payment->payment_type = $req->payment_type;
+            $payment->amount = $req->room_price;
+            $payment->remaining_amount = $remaining_amount;
+            $payment->payment_status = $payment_status;
             $payment->save();
 
             toast('Reservasi sukses','success');
-            return redirect()->back();
+            return redirect()->route('reservation.index');
         } else {
+            // Buat Username baru
             $user->name = $req->name;
             $user->email = $req->email;
             $user->phone = $req->phone;
+            $user->password = bcrypt($req->email);
             $user->save();
+            
+            $getUser = User::where('email',$req->email)->first('id');
+
+            $reservation->book_code = $req->book_code;
+            $reservation->room_id = $req->room_id;
+            $reservation->user_id = $getUser->id;
+            $reservation->check_in = $req->check_in;
+            $reservation->check_out = $req->check_out;
+            $reservation->guest_count = $req->guest_count;
+            $reservation->note = $req->note;
+            $reservation->save();
+
+            $getReservation = Reservation::where('book_code',$req->book_code)->first('id');
+
+            $payment->user_id = $getUser->id;
+            $payment->reservation_id = $getReservation->id;
+            $payment->invoice = $req->book_code;
+            $payment->payment_type = $req->payment_type;
+            $payment->amount = $req->room_price;
+            $payment->remaining_amount = $remaining_amount;
+            $payment->payment_status = $payment_status;
+            $payment->save();
+
+            toast('Reservasi sukses','success');
+            return redirect()->route('reservation.index');;
         }
-        
-        $getUser = User::where('email',$req->email)->pluck('id');
-
-        $reservation->book_code = $generateBook;
-        $reservation->room_id = $req->room_id;
-        $reservation->user_id = $getUser;
-        $reservation->check_in = $req->check_in;
-        $reservation->check_out = $req->check_out;
-        $reservation->guest_count = $req->guest_count;
-        $reservation->note = $req->note;
-        $reservation->save();
-
-        $getReservation = Reservation::where('book_code',$generateBook)->pluck('id');
-
-        $payment->user_id = $getUser;
-        $payment->reservation_id = $getReservation;
-        $payment->invoice = $generateBook;
-        $payment->type = $req->payment_type;
-        $payment->amount = $req->amount;
-        $payment->remaining = $req->remaining_amount;
-        $payment->status = $req->payment_status;
-        $payment->save();
-
-        toast('Reservasi sukses','success');
-        return redirect()->back();
     }
 
     /**

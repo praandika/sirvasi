@@ -8,6 +8,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
+        <a href="{{ route('reservation.book') }}" class="btn btn-success mb-3"><i class="fas fa-book"></i> Reservasi</a>
         <div class="table-responsive">
             <table id="tabel" class="table table-bordered table-striped">
                 <thead>
@@ -19,6 +20,7 @@
                         <th>Kamar</th>
                         <th>Check In</th>
                         <th>Check Out</th>
+                        <th>Note</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -33,6 +35,7 @@
                         <td>{{ $o->guest_count }} Person</td>
                         <td>{{ $o->check_in }}</td>
                         <td>{{ $o->check_out }}</td>
+                        <td>{{ $o->note }}</td>
                         @if(($o->reservation_status == "cancel") || ($o->reservation_status == "success"))
                         <td>
                             <button type="button" class="btn btn-success mb-3" data-toggle="modal"
@@ -63,6 +66,7 @@
                         <th>Kamar</th>
                         <th>Check In</th>
                         <th>Check Out</th>
+                        <th>Note</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>

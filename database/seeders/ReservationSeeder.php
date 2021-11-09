@@ -22,7 +22,6 @@ class ReservationSeeder extends Seeder
                 'room_id' => 1,
                 'check_in' => Carbon::yesterday('GMT+8')->format('Y-m-d'),
                 'check_out' => Carbon::now('GMT+8')->format('Y-m-d'),
-                'total' => 100000,
                 'reservation_status' => 'success',
                 'created_at' => Carbon::now('GMT+8')->format('Y-m-d H:i:s')
             ],
@@ -34,7 +33,6 @@ class ReservationSeeder extends Seeder
                 'room_id' => 4,
                 'check_in' => Carbon::yesterday('GMT+8')->format('Y-m-d'),
                 'check_out' => Carbon::tomorrow('GMT+8')->format('Y-m-d'),
-                'total' => 800000,
                 'reservation_status' => 'success',
                 'created_at' => Carbon::now('GMT+8')->format('Y-m-d H:i:s')
             ],
@@ -46,7 +44,6 @@ class ReservationSeeder extends Seeder
                 'room_id' => 5,
                 'check_in' => Carbon::now('GMT+8')->format('Y-m-d'),
                 'check_out' => Carbon::tomorrow('GMT+8')->format('Y-m-d'),
-                'total' => 500000,
                 'reservation_status' => 'waiting',
                 'created_at' => Carbon::now('GMT+8')->format('Y-m-d H:i:s')
             ],
@@ -58,7 +55,6 @@ class ReservationSeeder extends Seeder
                 'room_id' => 1,
                 'check_in' => Carbon::now('GMT+8')->format('Y-m-d'),
                 'check_out' => Carbon::tomorrow('GMT+8')->format('Y-m-d'),
-                'total' => 100000,
                 'reservation_status' => 'cancel',
                 'created_at' => Carbon::now('GMT+8')->format('Y-m-d H:i:s')
             ],

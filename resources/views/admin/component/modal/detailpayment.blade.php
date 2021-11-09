@@ -1,4 +1,4 @@
-@foreach($detail as $o)
+@foreach($data as $o)
 <div class="modal fade" id="detailPayment{{ $o->id }}">
     <div class="modal-dialog">
         <div class="modal-content">

@@ -24,7 +24,7 @@
                             @php($no = 1)
                             @forelse($room as $o)
                             <tr id="guestdata" class="klikroom" data-roomId="{{ $o->id }}"
-                                data-roomName="{{ $o->room_name }}">
+                                data-roomName="{{ $o->room_name }}" data-roomPrice="{{ $o->room_price }}">
                                 <td>{{ $no++ }}</td>
                                 <td>{{ $o->room_name }}</td>
                                 <td>{{ $o->room_type }}</td>
@@ -63,6 +63,7 @@
     //passing data ke input text
     $(document).on('click', '.klikroom', function (e) {
         document.getElementById("room_id").value = $(this).attr('data-roomId');
+        document.getElementById("room_price").value = $(this).attr('data-roomPrice');
         document.getElementById("room").value = $(this).attr('data-roomName');
         $('#cekKamar').modal('hide');
     });

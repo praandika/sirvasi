@@ -29,9 +29,9 @@
                     <tr>
                         <td>{{ $no++ }}</td>
                         <td>{{ $o->payment_status }}</td>
-                        <td><a href="{{ route('reservation.show',$o->reservation_id) }}">{{ $o->reservation->book_code }}</a></td>
-                        <td>{{ $o->user->name }}</td>
-                        <td>{{ $o->reservation->check_in }}</td>
+                        <td><a href="{{ route('reservation.show',$o->reservation_id) }}">{{ $o->book_code }}</a></td>
+                        <td>{{ $o->name }}</td>
+                        <td>{{ $o->check_in }}</td>
                         <td>{{ $o->amount }}</td>
                         <td>{{ $o->remaining_amount }}</td>
                         <td>{{ $o->payment_type }}</td>

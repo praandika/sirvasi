@@ -5,11 +5,9 @@
         </div>
         <div class="container">
             <div class="banner_content text-center">
-                <h6>Away from monotonous life</h6>
+                <h6>Nusa Lembongan</h6>
                 <h2>Relax Your Mind</h2>
-                <p>If you are looking at blank cassettes on the web, you may be very confused at the<br> difference in
-                    price. You may see some for as low as $.17 each.</p>
-                <a href="#" class="btn theme_btn button_hover">Get Started</a>
+                <p>Nusa Lembongan, a small island between Bali and Nusa Penida in Badung Strait, is the perfect holiday hideaway with few visitors and pristine un-spoilt beaches. A low, protected island about 11 km southeast of mainland Bali, measuring only four by three km and ringed with mangrove swamps, and palms and white sandy beaches. Inland the terrain is scrubby and very dry, with volcanic stonewalls and processional avenues crisscrossing the small cactus-covered hills.</p>
             </div>
         </div>
     </div>
@@ -20,13 +18,14 @@
                     <h2>Book<br> Your Room</h2>
                 </div>
                 <div class="col-md-9">
+                    <form action="{{ route('search') }}" method="get"></form>
                     <div class="boking_table">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="form-group">
                                         <div class='input-group date' id='datetimepicker11'>
-                                            <input type='text' class="form-control" placeholder="Arrival Date" />
+                                            <input type='text' class="form-control" placeholder="Check in" />
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </span>
@@ -34,7 +33,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class='input-group date' id='datetimepicker1'>
-                                            <input type='text' class="form-control" placeholder="Departure Date" />
+                                            <input type='text' class="form-control" placeholder="Check Out" />
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </span>
@@ -46,33 +45,19 @@
                                 <div class="book_tabel_item">
                                     <div class="input-group">
                                         <select class="wide">
-                                            <option data-display="Adult">Adult</option>
-                                            <option value="1">Old</option>
-                                            <option value="2">Younger</option>
-                                            <option value="3">Potato</option>
-                                        </select>
-                                    </div>
-                                    <div class="input-group">
-                                        <select class="wide">
-                                            <option data-display="Child">Child</option>
-                                            <option value="1">Child</option>
-                                            <option value="2">Baby</option>
-                                            <option value="3">Child</option>
+                                            <option data-display="Person">Person</option>
+                                            <option value="1">Single</option>
+                                            <option value="2">Couple</option>
+                                            <option value="3">Group</option>
+                                            <option value="3">Family</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
-                                    <div class="input-group">
-                                        <select class="wide">
-                                            <option data-display="Child">Number of Rooms</option>
-                                            <option value="1">Room 01</option>
-                                            <option value="2">Room 02</option>
-                                            <option value="3">Room 03</option>
-                                        </select>
-                                    </div>
-                                    <a class="book_now_btn button_hover" href="#">Book Now</a>
+                                <a class="book_now_btn button_hover" href="#">Book Now</a>
+                                    
                                 </div>
                             </div>
                         </div>
