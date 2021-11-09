@@ -11,24 +11,24 @@
         <form action="{{ route('add.photos') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="modal-body">
-                    <div class="row">
-                        <input type="text" value="{{ $data->id }}" name="room_id">
+                <div class="row">
+                    <input type="hidden" value="{{ $data->id }}" name="room_id">
 
-                        <div class="col-lg-12">
+                    <div class="col-lg-12">
 
-                            <div class="form-group">
-                                <label for="room_name">Nama Kamar : {{ $data->room_name }}</label>
-                            </div>
+                        <div class="form-group">
+                            <label for="room_name">Nama Kamar : {{ $data->room_name }}</label>
                         </div>
                     </div>
+                </div>
 
-                    <div class="wrapper-facilities" id="wrapper-facilities">
-                        <!-- Container input dinamis -->
-                    </div>
+                <div class="wrapper-facilities" id="wrapper-facilities">
+                    <!-- Container input dinamis -->
+                </div>
 
-                    <button type="button" class="btn btn-success add">
-                        Tambah Foto
-                    </button>
+                <button type="button" class="btn btn-success add">
+                    Tambah Foto
+                </button>
 
                 <div class="modal-footer justify-content-between">
                     <button type="reset" class="btn btn-default">Reset</button>
@@ -40,14 +40,19 @@
             <div class="row control-row">
                 <div class="col-lg-12">
                     <label style="display: block;">Upload Foto Kamar</label>
-                    <div class="input-file mb-3">
-                        <input type="file" class="dropzone" id="photo-post" name="post_img[]"
-                            style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
+                    <div class="input-group mb-3">
+                        <input type="file" class="dropzone form-control" id="photo-post" name="post_img[]"
+                            style="border: 1px dashed grey; padding-bottom: 10px !important; border-radius: 4px; width:80%;">
+                        <button class="btn btn-danger remove" id="button-addon2" type="button" data-toggle="modal"
+                            data-target="#cekUser"><i class="fas fa-times"></i></button>
+                        <div class="row" style="color: red;">
+                            <div class="col-lg-12">
+                                <small>upload tipe file : *jpg, jpeg, png</small>
+                                <small>ukuran : *263px x 270px</small>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-danger remove">
-                    <i class="fas fa-times"></i>
-                </button>
             </div>
         </div>
         <!-- /.card-body -->

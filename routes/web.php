@@ -64,6 +64,13 @@ Route::get('room-photos/{id}/add', [App\Http\Controllers\RoomController::class, 
 Route::post('room-photos-add', [App\Http\Controllers\RoomController::class, 'roomPhotosStore'])->name('add.photos');
 // END Foto Kamar
 
+// Media
+Route::get('media/{id}/show', [App\Http\Controllers\MediaController::class,'show'])->name('media.show');
+Route::get('media/{id}/{room}/edit', [App\Http\Controllers\MediaController::class,'edit'])->name('media.edit');
+Route::post('media/{id}/delete', [App\Http\Controllers\MediaController::class,'delete'])->name('media.delete');
+Route::post('media/{id}/{room}/update', [App\Http\Controllers\MediaController::class,'update'])->name('media.update');
+// END Media Edit
+
 // Pemesanan
 Route::resource('reservation', App\Http\Controllers\ReservationController::class);
 Route::get('/book', [App\Http\Controllers\ReservationController::class, 'book'])->name('reservation.book');
@@ -78,5 +85,10 @@ Route::get('validation', [App\Http\Controllers\ValidationController::class, 'val
 // END Validasi
 
 // Cari Kamar
-Route::get('search/', [App\Http\Controllers\LandingController::class, 'search'])->name('search');
+Route::get('search', [App\Http\Controllers\LandingController::class, 'search'])->name('search');
 // END Cari Kamar
+
+// Landing Booking
+Route::get('/booking/{id}', [App\Http\Controllers\LandingController::class, 'detailbook'])->name('detail.book');
+Route::get('/pay', [App\Http\Controllers\LandingController::class, 'paybook'])->name('pay.book');
+// END Landing Booking

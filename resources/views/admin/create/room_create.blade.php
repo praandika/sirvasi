@@ -79,7 +79,7 @@
                         <label style="display: block;">Upload Banner</label>
                         <div class="input-file mb-3">
                             <input type="file" class="dropzone" id="photo-post" name="banner"
-                                style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
+                                style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%" required>
                         </div>
                     </div>
 
@@ -87,7 +87,7 @@
                         <label style="display: block;">Upload Gambar Unggulan</label>
                         <div class="input-file mb-3">
                             <input type="file" class="dropzone" id="photo-post" name="featured_img"
-                                style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
+                                style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%" required>
                         </div>
                     </div>
                 </div>

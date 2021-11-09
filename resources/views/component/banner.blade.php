@@ -18,22 +18,23 @@
                     <h2>Book<br> Your Room</h2>
                 </div>
                 <div class="col-md-9">
-                    <form action="{{ route('search') }}" method="get"></form>
+                    <form action="{{ route('search') }}" method="get">
+                        @csrf
                     <div class="boking_table">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="form-group">
                                         <div class='input-group date' id='datetimepicker11'>
-                                            <input type='text' class="form-control" placeholder="Check in" />
+                                            <input type='text' class="form-control" placeholder="Check in" name="check_in"/>
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class='input-group date' id='datetimepicker1'>
-                                            <input type='text' class="form-control" placeholder="Check Out" />
+                                        <div class='input-group date' id='datetimepicker11'>
+                                            <input type='text' class="form-control" placeholder="Check Out" name="check_out" />
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </span>
@@ -44,24 +45,25 @@
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="input-group">
-                                        <select class="wide">
+                                        <select class="wide" name="person">
                                             <option data-display="Person">Person</option>
                                             <option value="1">Single</option>
                                             <option value="2">Couple</option>
                                             <option value="3">Group</option>
-                                            <option value="3">Family</option>
+                                            <option value="4">Family</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
-                                <a class="book_now_btn button_hover" href="#">Book Now</a>
+                                <button type="submit" class="book_now_btn button_hover">Book Now</button>
                                     
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>

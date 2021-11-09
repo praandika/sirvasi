@@ -83,7 +83,7 @@
                         <label style="display: block;">Ubah Banner</label>
                         <img src="{{ asset('photos/banner/'.$room->banner) }}" alt="" width="100px">
                         <div class="input-file mb-3">
-                            <input type="text" name="prev_banner" value="{{ $room->banner }}">
+                            <input type="hidden" name="prev_banner" value="{{ $room->banner }}">
                             <input type="file" class="dropzone" id="photo-post" name="banner"
                                 style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
                         </div>
@@ -93,10 +93,16 @@
                         <label style="display: block;">Ubah Gambar Unggulan</label>
                         <img src="{{ asset('photos/featured/'.$room->featured_img) }}" alt="" width="100px">
                         <div class="input-file mb-3">
-                        <input type="text" name="prev_featured" value="{{ $room->featured_img }}">
+                        <input type="hidden" name="prev_featured" value="{{ $room->featured_img }}">
                             <input type="file" class="dropzone" id="photo-post" name="featured"
                                 style="border: 1px dashed grey; padding: 10px; border-radius: 4px; width:80%">
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a href="{{ route('media.show',$room->id) }}" class="btn btn-success">Ubah Foto Detail Kamar</a>
                     </div>
                 </div>
             </div>

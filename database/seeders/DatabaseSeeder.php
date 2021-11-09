@@ -27,11 +27,11 @@ class DatabaseSeeder extends Seeder
             'created_at' => Carbon::now('GMT+8')->format('Y-m-d H:i:s'),
         ]);
 
-        $this->call([
-            RoomSeeder::class,
-            FacilitySeeder::class,
-            ReservationSeeder::class,
-            PaymentSeeder::class,
-        ]);
+        // $this->call([
+        //     RoomSeeder::class,
+        //     FacilitySeeder::class,
+        //     ReservationSeeder::class,
+        //     PaymentSeeder::class,
+        // ]);
     }
 }
