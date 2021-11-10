@@ -22,6 +22,7 @@ class CreatePaymentsTable extends Migration
             $table->integer('amount');
             $table->integer('remaining_amount');
             $table->enum('payment_status',['unpaid','paid half','paid']);
+            $table->text('proof')->nullable();
             $table->timestamps();
         });
     }

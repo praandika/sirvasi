@@ -137,15 +137,19 @@ class ReservationController extends Controller
             $payment->save();
 
             toast('Reservasi sukses','success');
-            return redirect()->route('reservation.index');;
+            return redirect()->route('reservation.index');
         }
     }
 
     public function detailbook($id, $in, $out, $price, $room, $person){
 
+        $o = Carbon::parse($out)->format('Ymd');
+        $i = Carbon::parse($in)->format('Ymd');
+        $nights = $o-$i;
         $ppn = $price*0.1;
         $svc = $price*0.1;
-        $total = $price+$ppn+$svc;
+        $subtotal = $price*$nights;
+        $total = $subtotal+$ppn+$svc;
 
         $data = Room::find($id);
         $facilities = RoomFacilities::join('facilities','room_facilities.facilities_id','=','facilities.id')
@@ -154,6 +158,18 @@ class ReservationController extends Controller
         ->get();
 
         return view('detail', compact('in','out','id','price','room','total','data','facilities','person'));
+    }
+
+    public function bookNow($id, $price, $room){
+
+        $data = Room::find($id);
+        $facilities = RoomFacilities::join('facilities','room_facilities.facilities_id','=','facilities.id')
+        ->join('rooms','room_facilities.room_id','=','rooms.id')
+        ->where('room_facilities.room_id',$id)
+        ->get();
+        $capacity = Room::find($id)->pluck('room_capacity');
+
+        return view('booknow', compact('data','id','price','room','facilities','capacity'));
     }
 
     public function pay(Request $req){
@@ -180,7 +196,7 @@ class ReservationController extends Controller
         alert()->success('Welcome',Auth::user()->name);
         return redirect()->route('dashboard');
     }
-
+    
     /**
      * Display the specified resource.
      *
@@ -200,7 +216,7 @@ class ReservationController extends Controller
      */
     public function edit(Reservation $reservation)
     {
-        //
+        // 
     }
 
     /**

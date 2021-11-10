@@ -17,8 +17,6 @@
         <!-- main css -->
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/resources/demos/style.css">
         <style>
             html {
                 scroll-behavior: smooth;
@@ -42,7 +40,6 @@
         <script src="{{ asset('js/stellar.js') }}"></script>
         <script src="{{ asset('vendors/lightbox/simpleLightbox.min.js') }}"></script>
         <script src="{{ asset('js/custom.js') }}"></script>
-        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
         <script>
             $( function() {
                 $( "#datepicker" ).datepicker();

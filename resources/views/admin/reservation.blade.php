@@ -46,8 +46,10 @@
                         </td>
                         @else
                         <td>
-                            <a href="{{ route('reservation.edit',$o->id) }}" class="btn btn-primary">
+                            <form action="">
+                                <a href="{{ route('reservation.edit',$o->id) }}" class="btn btn-primary">
                                 <i class="fas fa-logout-alt"></i> Check Out</a>
+                            </form>
                         </td>
                         @endif
                     </tr>

@@ -50,6 +50,7 @@
         $('#mc_embed_signup').find('form').ajaxChimp();
     }
     mailChimp();
+
     
     /* ===== Parallax Effect===== */
 	
@@ -300,3 +301,7 @@
     }
 
 })(jQuery)
+
+function payment() {
+    document.getElementById("result").value = "tes";
+}

@@ -20,6 +20,7 @@
                         <th>Total</th>
                         <th>Sisa Pembayaran</th>
                         <th>Tipe Transaksi</th>
+                        <th>Bukti Bayar</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -35,6 +36,7 @@
                         <td>{{ $o->amount }}</td>
                         <td>{{ $o->remaining_amount }}</td>
                         <td>{{ $o->payment_type }}</td>
+                        <td><a href="{{ asset('photos/proof/'.$o->proof) }}">{{ $o->proof }}</a></td>
                         @if($o->payment_status == "paid")
                         <td>
                             <button type="button" class="btn btn-success mb-3" data-toggle="modal"
@@ -45,7 +47,7 @@
                         </td>
                         @else
                         <td>
-                            <a href="{{ route('payment.edit',$o->id) }}" class="btn btn-primary">
+                            <a href="{{ route('payment.bayar',$o->id) }}" class="btn btn-primary">
                                 <i class="fas fa-logout-alt"></i> Bayar</a>
                         </td>
                         @endif
@@ -66,6 +68,7 @@
                         <th>Total</th>
                         <th>Sisa Pembayaran</th>
                         <th>Tipe Transaksi</th>
+                        <th>Bukti Bayar</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>

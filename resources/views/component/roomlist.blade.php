@@ -11,7 +11,7 @@
                 <div class="accomodation_item text-center">
                     <div class="hotel_img">
                         <img src="{{ asset('photos/featured/'.$o->featured_img) }}" alt="">
-                        <a href="{{ route('pay',$o->id) }}" class="btn theme_btn button_hover">Book Now</a>
+                        <a href="{{ url('booknow/'.$o->id.'/'.$o->room_price.'/'.$o->room_name) }}" class="btn theme_btn button_hover">Book Now</a>
                     </div>
                     <a href="#">
                         <h4 class="sec_h4">{{ $o->room_name }}</h4>

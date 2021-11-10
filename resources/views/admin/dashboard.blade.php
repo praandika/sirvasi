@@ -41,7 +41,7 @@
                             @elseif($o->validation == "no")
                             <button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Please book another room"><i class="far fa-frown"></i> Full booked</button>
                             @else
-                            <a href="{{ route('pay.edit',$o->id) }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Pay now"><i class="far fa-laugh-wink"></i> Pay</a>
+                            <a href="{{ url('pay/'.$o->id.'/'.$o->check_in.'/'.$o->check_out.'/'.$o->room_price.'/'.$o->book_code.'/'.$o->room_name.'/edit') }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Pay now"><i class="far fa-laugh-wink"></i> Pay</a>
                             @endif
                         </td>
                     </tr>

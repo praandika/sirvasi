@@ -9,11 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-
 class LandingController extends Controller
 {
     public function index(){
-        $data = Room::all();
+        $data = DB::table('rooms')->get();
         return view('landing', compact('data'));
     }
 

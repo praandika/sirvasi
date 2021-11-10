@@ -78,6 +78,10 @@ Route::get('/book', [App\Http\Controllers\ReservationController::class, 'book'])
 
 // Transaksi
 Route::resource('payment', App\Http\Controllers\PaymentController::class);
+
+Route::get('bayar/{id}', [App\Http\Controllers\PaymentController::class, 'bayar'])->name('payment.bayar');
+
+Route::post('payment/store', [App\Http\Controllers\PaymentController::class, 'store'])->name('payment.store');
 // END Transaksi
 
 // Validasi
@@ -90,16 +94,24 @@ Route::post('validation/cancel', [App\Http\Controllers\ValidationController::cla
 
 // Cari Kamar
 Route::get('search', [App\Http\Controllers\LandingController::class, 'search'])->name('search');
+
+Route::get('booknow/{id}/{price}/{room}', [App\Http\Controllers\ReservationController::class, 'bookNow'])->name('booknow');
 // END Cari Kamar
 
 // Landing Booking
 Route::get('/booking/{id}/{in}/{out}/{price}/{room}/{person}', [App\Http\Controllers\ReservationController::class, 'detailbook'])->name('detail.booking');
 
-Route::get('/pay/edit', [App\Http\Controllers\PaymentController::class, 'payEdit'])->name('pay.edit');
+Route::get('/pay/{id}/{in}/{out}/{price}/{book}/{room}/edit', [App\Http\Controllers\PaymentController::class, 'payEdit'])->name('pay.edit');
 
-Route::post('/pay', [App\Http\Controllers\PaymentController::class, 'pay'])->name('pay');
+Route::post('/payment', [App\Http\Controllers\PaymentController::class, 'payment'])->name('payment');
+
+Route::post('/paymentbook', [App\Http\Controllers\PaymentController::class, 'paymentBook'])->name('paymentbook');
+
+Route::post('/pay', [App\Http\Controllers\ReservationController::class, 'pay'])->name('pay');
+Route::post('/paybook', [App\Http\Controllers\ReservationController::class, 'payBook'])->name('paybook');
 // END Landing Booking
 
 // Media
 Route::resource('media', App\Http\Controllers\MediaController::class);
 // END Media
+

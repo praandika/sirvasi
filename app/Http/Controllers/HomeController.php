@@ -31,7 +31,7 @@ class HomeController extends Controller
             $data = Reservation::join('users','reservations.user_id','=','users.id')
             ->join('rooms','reservations.room_id','=','rooms.id')
             ->where('email',Auth::user()->email)
-            ->select('reservations.*','book_code','check_in','check_out','rooms.room_name')
+            ->select('reservations.*','book_code','check_in','check_out','rooms.room_name','rooms.room_price')
             ->get();
             return view('admin.dashboard', compact('data'));
         }else{
