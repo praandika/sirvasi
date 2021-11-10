@@ -22,6 +22,7 @@ class CreateReservationsTable extends Migration
             $table->date('check_in');
             $table->date('check_out');
             $table->enum('reservation_status',['waiting','arrived','success','cancel']);
+            $table->enum('validation',['wait','no','yes']);
             $table->text('note')->nullable();
             $table->timestamps();
         });

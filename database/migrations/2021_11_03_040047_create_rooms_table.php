@@ -20,7 +20,6 @@ class CreateRoomsTable extends Migration
             $table->integer('room_price');
             $table->integer('room_capacity');
             $table->string('bed_info');
-            $table->string('facility')->nullable();
             $table->string('banner')->nullable();
             $table->string('featured_img')->nullable();
             $table->enum('room_status',['available','occupied']);

@@ -19,7 +19,11 @@
         <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="/resources/demos/style.css">
-        
+        <style>
+            html {
+                scroll-behavior: smooth;
+            }
+        </style>
     </head>
     <body>
         @yield('landing-content')

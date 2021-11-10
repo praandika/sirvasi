@@ -14,7 +14,25 @@ class ValidationController extends Controller
     }
 
     public function index(){
-        $data = Reservation::all();
+        $data = Reservation::where('validation','wait')
+        ->orderBy('check_in','asc')
+        ->get();
         return view('admin.validation', compact('data'));
+    }
+
+    public function validationProccess(Request $req){
+        $res = Reservation::find($req->id);
+        $res->validation = "yes";
+        $res->save();
+        toast('Data berhasil divalidasi','success');
+        return redirect()->back();
+    }
+
+    public function validationCancel(Request $req){
+        $res = Reservation::find($req->id);
+        $res->validation = "no";
+        $res->save();
+        toast('Data berhasil dicancel','success');
+        return redirect()->back();
     }
 }

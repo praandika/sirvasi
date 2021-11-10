@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+use App\Models\RoomFacilities;
 use App\Models\Payment;
 use App\Models\User;
 use App\Models\Room;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Auth;
 
 class ReservationController extends Controller
 {
@@ -87,6 +89,7 @@ class ReservationController extends Controller
             $reservation->check_out = $req->check_out;
             $reservation->guest_count = $req->guest_count;
             $reservation->note = $req->note;
+            $reservation->validation = "wait";
             $reservation->save();
 
             $getReservation = Reservation::where('book_code',$req->book_code)->first('id');
@@ -119,6 +122,7 @@ class ReservationController extends Controller
             $reservation->check_out = $req->check_out;
             $reservation->guest_count = $req->guest_count;
             $reservation->note = $req->note;
+            $reservation->validation = "wait";
             $reservation->save();
 
             $getReservation = Reservation::where('book_code',$req->book_code)->first('id');
@@ -135,6 +139,46 @@ class ReservationController extends Controller
             toast('Reservasi sukses','success');
             return redirect()->route('reservation.index');;
         }
+    }
+
+    public function detailbook($id, $in, $out, $price, $room, $person){
+
+        $ppn = $price*0.1;
+        $svc = $price*0.1;
+        $total = $price+$ppn+$svc;
+
+        $data = Room::find($id);
+        $facilities = RoomFacilities::join('facilities','room_facilities.facilities_id','=','facilities.id')
+        ->join('rooms','room_facilities.room_id','=','rooms.id')
+        ->where('room_facilities.room_id',$id)
+        ->get();
+
+        return view('detail', compact('in','out','id','price','room','total','data','facilities','person'));
+    }
+
+    public function pay(Request $req){
+        $now = Carbon::now('GMT+8')->format('YmdHis');
+        $book_code = "Book".$now."";
+
+        User::where('email',Auth::user()->email)
+        ->update([
+            'phone' => $req->phone,
+            'address' => $req->address,
+        ]);
+
+        $reservation = New Reservation;
+        $reservation->book_code = $book_code;
+        $reservation->room_id = $req->id;
+        $reservation->user_id = Auth::user()->id;
+        $reservation->check_in = $req->in;
+        $reservation->check_out = $req->out;
+        $reservation->guest_count = $req->person;
+        $reservation->note = $req->note;
+        $reservation->validation = "wait";
+        $reservation->save();
+
+        alert()->success('Welcome',Auth::user()->name);
+        return redirect()->route('dashboard');
     }
 
     /**

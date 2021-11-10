@@ -17,21 +17,33 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\User::factory(10)->create();
         \App\Models\User::insert([
-            'name' => 'Andika Pranayoga',
-            'username' => 'andika',
-            'email' => 'praandikayoga@gmail.com',
-            'email_verified_at' => Carbon::now('GMT+8')->format('Y-m-d H:i:s'),
-            'password' => bcrypt('12345678'),
-            'phone' => '081246571421',
-            'access' => 'admin',
-            'created_at' => Carbon::now('GMT+8')->format('Y-m-d H:i:s'),
+            [
+                'name' => 'Andika Pranayoga',
+                'username' => 'andika',
+                'email' => 'praandikayoga@gmail.com',
+                'email_verified_at' => Carbon::now('GMT+8')->format('Y-m-d H:i:s'),
+                'password' => bcrypt('12345678'),
+                'phone' => '081246571421',
+                'access' => 'admin',
+                'created_at' => Carbon::now('GMT+8')->format('Y-m-d H:i:s'),
+            ],
+            [
+                'name' => 'Administrator',
+                'username' => 'admin',
+                'email' => 'admin@gmail.com',
+                'email_verified_at' => Carbon::now('GMT+8')->format('Y-m-d H:i:s'),
+                'password' => bcrypt('12345678'),
+                'phone' => '081081081081',
+                'access' => 'admin',
+                'created_at' => Carbon::now('GMT+8')->format('Y-m-d H:i:s'),
+            ],
         ]);
 
-        // $this->call([
-        //     RoomSeeder::class,
-        //     FacilitySeeder::class,
-        //     ReservationSeeder::class,
-        //     PaymentSeeder::class,
-        // ]);
+        $this->call([
+            RoomSeeder::class,
+            FacilitySeeder::class,
+            MediaSeeder::class,
+            RoomFacilitySeeder::class,
+        ]);
     }
 }

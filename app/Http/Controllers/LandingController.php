@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\User;
+use App\Models\RoomFacilities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -10,11 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class LandingController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index(){
         $data = Room::all();
         return view('landing', compact('data'));
@@ -35,16 +32,8 @@ class LandingController extends Controller
 
         $check_in = $req->check_in;
         $check_out = $req->check_out;
+        $person = $req->person;
         
-        return view('search', compact('data','rekomendasi','check_in','check_out'));
-    }
-
-    public function detailbook(Request $req){
-        $check_in = $req->check_in;
-        $check_out = $req->check_out;
-
-        $user = User::where('email',Auth::user()->email)->get();
-
-        return view('detail', compact('data','check_in','check_out','user'));
+        return view('search', compact('data','rekomendasi','check_in','check_out','person'));
     }
 }

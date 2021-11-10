@@ -21,16 +21,18 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            @if(Auth::user()->access == "admin")
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+               @if((Auth::user()->access == "user") || (Auth::user()->access == "admin"))
                <li class="nav-item">
                     <a href="#" class="nav-link">
                     <i class="nav-icon far fa-chart-bar"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
+                @endif
+                @if(Auth::user()->access == "admin")
                 <li class="nav-item menu-open">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-database"></i>
@@ -92,12 +94,46 @@
                         <p>Validasi</p>
                     </a>
                 </li>
+                @endif
 
+                @if((Auth::user()->access == "pemimpin") || (Auth::user()->access == "admin"))
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-file-alt"></i>
                         <p>Laporan</p>
                     </a>
+                </li>
+                @endif
+
+                @if(Auth::user()->access == "user")
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                    <i class=" nav-icon fas fa-money-bill-wave"></i>
+                        <p>Payment</p>
+                    </a>
+                </li>
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-history"></i>
+                        <p>
+                            History
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Booking History</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Payment History</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 @endif
             </ul>

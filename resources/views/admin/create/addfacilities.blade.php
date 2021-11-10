@@ -12,8 +12,7 @@
             @csrf
             <div class="modal-body">
                 <div class="row">
-                    <input type="text" value="{{ $data->id }}" name="room_id">
-                    <input type="text" value="{{ $data->hook }}" disabled>
+                    <input type="hidden" value="{{ $data->id }}" name="room_id">
 
                     <div class="col-lg-12">
 
@@ -41,20 +40,19 @@
         <div class="copy d-none">
             <div class="row control-row">
                 <div class="col-lg-6">
-                    <div class="form-group">
-                        <label>Fasilitas</label>
+                <label>Fasilitas</label>
+                    <div class="input-group mb-3">
                         <select class="form-control select2" name="facility_name[]" value="{{ old('facility_name') }}"
                             required>
                             @foreach($facilities as $o)
                             <option value="{{ $o->id }}">{{ $o->facility_name }}</option>
                             @endforeach
                         </select>
+                        <button type="button" class="btn btn-danger remove">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
-
                 </div>
-                <button type="button" class="btn btn-danger remove">
-                    <i class="fas fa-times"></i>
-                </button>
             </div>
         </div>
 

@@ -23,7 +23,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $data = Room::orderBy('id','desc')->get();
+        $data = Room::orderBy('created_at','desc')->get();
         return view('admin.room', compact('data'));
     }
 
