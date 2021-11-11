@@ -96,7 +96,7 @@ Route::post('validation/cancel', [App\Http\Controllers\ValidationController::cla
 // END Validasi
 
 // Cari Kamar
-Route::get('search', [App\Http\Controllers\LandingController::class, 'search'])->name('search');
+Route::get('searchroom', [App\Http\Controllers\LandingController::class, 'searchroom'])->name('searchroom');
 
 Route::get('booknow/{id}/{price}/{room}', [App\Http\Controllers\ReservationController::class, 'bookNow'])->name('booknow');
 // END Cari Kamar
@@ -131,3 +131,9 @@ Route::get('result/{invoice}', [App\Http\Controllers\PaymentController::class, '
 
 Route::get('print/{invoice}', [App\Http\Controllers\PaymentController::class, 'printInvoice'])->name('print.invoice');
 // END Invoice
+
+// History
+Route::get('history/reservation', [App\Http\Controllers\HomeController::class, 'historyBook'])->name('history.reservation');
+
+Route::get('history/payment', [App\Http\Controllers\HomeController::class, 'historyPay'])->name('history.payment');
+// END History

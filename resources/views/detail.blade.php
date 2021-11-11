@@ -16,12 +16,12 @@
                             <div class="col-lg-12">
                                 <ul class="list_style">
                                     <li>Check In</li>
-                                    <li>{{ Carbon\Carbon::parse($in)->format('D d M Y H:i') }}</li>
-                                    <input type="hidden" value="{{ Carbon\Carbon::parse($in)->format('Y-m-d') }}"
+                                    <li>{{ Carbon\Carbon::parse($in)->format('D d M Y, H:i') }}</li>
+                                    <input type="hidden" value="{{ Carbon\Carbon::parse($in)->format('Y-m-d H:i') }}"
                                         name="in">
                                     <li>Check Out</li>
-                                    <li>{{ Carbon\Carbon::parse($out)->format('D d M Y H:i') }}</li>
-                                    <input type="hidden" value="{{ Carbon\Carbon::parse($out)->format('Y-m-d') }}"
+                                    <li>{{ Carbon\Carbon::parse($out)->format('D d M Y, H:i') }}</li>
+                                    <input type="hidden" value="{{ Carbon\Carbon::parse($out)->format('Y-m-d H:i') }}"
                                         name="out">
                                 </ul>
                             </div>

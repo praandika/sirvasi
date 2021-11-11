@@ -18,7 +18,7 @@
                     <h2>Book<br> Your Room</h2>
                 </div>
                 <div class="col-md-9">
-                    <form action="{{ route('search') }}" method="get">
+                    <form action="{{ route('searchroom') }}" method="get">
                         @csrf
                     <div class="boking_table">
                         <div class="row">

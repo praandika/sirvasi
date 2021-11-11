@@ -24,8 +24,6 @@
         </style>
     </head>
     <body>
-        @include('sweetalert::alert')
-        
         @yield('landing-content')
         
         <!-- Optional JavaScript -->

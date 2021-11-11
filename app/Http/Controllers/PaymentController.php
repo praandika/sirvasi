@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class PaymentController extends Controller
 {
@@ -50,14 +51,14 @@ class PaymentController extends Controller
         ->where('reservations.id',$id)
         ->pluck('rooms.banner');
 
-        $facilities = RoomFacilities::join('facilities','room_facilities.facilities_id','=','facilities.id')
-        ->join('rooms','room_facilities.room_id','=','rooms.id')
-        ->where('room_facilities.room_id',$id)
-        ->get();
-
         $getRoomId = Reservation::join('rooms','reservations.room_id','=','rooms.id')
         ->where('reservations.id',$id)
         ->pluck('rooms.id');
+
+        $facilities = RoomFacilities::join('facilities','room_facilities.facilities_id','=','facilities.id')
+        ->join('rooms','room_facilities.room_id','=','rooms.id')
+        ->where('room_facilities.room_id',$getRoomId)
+        ->get();
 
         $media = Media::join('rooms','media.room_id','=','rooms.id')
         ->where('media.room_id',$getRoomId[0])
@@ -90,7 +91,7 @@ class PaymentController extends Controller
 
             $invoice = $req->book_code;
 
-            return redirect('print/'.$invoice);
+            return redirect('result/'.$invoice);
 
         } else if($req->select_payment == "fp"){
             $proof = $req->file('proof');
@@ -114,7 +115,7 @@ class PaymentController extends Controller
 
             $invoice = $req->book_code;
 
-            return redirect()->route('dashboard');
+            return redirect('result/'.$invoice);
         } else if($req->select_payment == "select") {
             return redirect()->back()->withFail('*Please select payment information');
         }
@@ -125,7 +126,20 @@ class PaymentController extends Controller
         ->join('reservations','payments.reservation_id','=','reservations.id')
         ->where('invoice',$invoice)
         ->get();
-        return view('invoice', compact('data','invoice'));
+        $in = Payment::join('users','payments.user_id','=','users.id')
+        ->join('reservations','payments.reservation_id','=','reservations.id')
+        ->where('invoice',$invoice)
+        ->pluck('reservations.check_in');
+        $out = Payment::join('users','payments.user_id','=','users.id')
+        ->join('reservations','payments.reservation_id','=','reservations.id')
+        ->where('invoice',$invoice)
+        ->pluck('reservations.check_out');
+
+        $in = Carbon::parse($in[0])->format('Ymd');
+        $out = Carbon::parse($out[0])->format('Ymd');
+        $nights = $out-$in;
+
+        return view('invoice', compact('data','invoice','nights'));
     }
 
     public function printInvoice($invoice){
@@ -133,7 +147,38 @@ class PaymentController extends Controller
         ->join('reservations','payments.reservation_id','=','reservations.id')
         ->where('invoice',$invoice)
         ->get();
-        $pdf = PDF::loadview('print.invoice',compact('data','invoice'));
+
+        $in = Payment::join('users','payments.user_id','=','users.id')
+        ->join('reservations','payments.reservation_id','=','reservations.id')
+        ->where('invoice',$invoice)
+        ->pluck('reservations.check_in');
+        $out = Payment::join('users','payments.user_id','=','users.id')
+        ->join('reservations','payments.reservation_id','=','reservations.id')
+        ->where('invoice',$invoice)
+        ->pluck('reservations.check_out');
+
+        $in = Carbon::parse($in[0])->format('Ymd');
+        $out = Carbon::parse($out[0])->format('Ymd');
+        $nights = $out-$in;
+
+        // Harga sebelum pajak
+        $amount = Reservation::join('rooms','reservations.room_id','=','rooms.id')
+        ->where('book_code',$invoice)
+        ->pluck('rooms.room_price');
+        $harga = $amount[0]*$nights;
+
+        // Pajak
+        $ppn = $harga*0.1;
+        $svc = $harga*0.1;
+
+        // Total + Pajak
+        $total = $harga + $ppn + $svc;
+
+        // Terbayar
+        $r_amount = Payment::where('invoice',$invoice)->pluck('remaining_amount');
+        $paid = $total - $r_amount[0];
+
+        $pdf = PDF::loadview('print.invoice',compact('data','invoice','nights','paid','ppn','svc','total','harga'));
         return $pdf->download('Invoice_'.$invoice.'.pdf');
     }
 
@@ -208,10 +253,13 @@ class PaymentController extends Controller
 
         $res = Reservation::where('book_code',$req->invoice)->update([
             'reservation_status' => 'arrived',
+            'validation' => 'success',
         ]);
 
+        $invoice = $req->invoice;
+
         toast('Pembayaran sukses','success');
-        return redirect()->route('payment.index');
+        return redirect('result/'.$invoice);
     }
 
     /**

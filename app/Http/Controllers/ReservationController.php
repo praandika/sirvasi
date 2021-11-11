@@ -80,9 +80,9 @@ class ReservationController extends Controller
         $user = new User;
         $reservation = New Reservation;
         $payment = new Payment;
-
+        
         // Hitung Sisa bayar
-        $amount = $req->room_price;
+        $amount = $req->total;
         $pay = $req->pay;
         $remaining_amount = $amount - $pay;
 
@@ -96,6 +96,12 @@ class ReservationController extends Controller
         } else {
             $payment_status = "paid half";
         }
+        
+        $invoice = $req->book_code;
+
+        // Format Date Time
+        $in = Carbon::parse($req->check_in)->format('Y-m-d H:i');
+        $out = Carbon::parse($req->check_out)->format('Y-m-d H:i');
 
         $cekUser = User::where('email',$req->email)->first();
 
@@ -103,8 +109,8 @@ class ReservationController extends Controller
             $reservation->book_code = $req->book_code;
             $reservation->room_id = $req->room_id;
             $reservation->user_id = $req->user_id;
-            $reservation->check_in = $req->check_in;
-            $reservation->check_out = $req->check_out;
+            $reservation->check_in = $in;
+            $reservation->check_out = $out;
             $reservation->guest_count = $req->guest_count;
             $reservation->note = $req->note;
             $reservation->validation = "wait";
@@ -116,13 +122,13 @@ class ReservationController extends Controller
             $payment->reservation_id = $getReservation->id;
             $payment->invoice = $req->book_code;
             $payment->payment_type = $req->payment_type;
-            $payment->amount = $req->room_price;
+            $payment->amount = $req->total;
             $payment->remaining_amount = $remaining_amount;
             $payment->payment_status = $payment_status;
             $payment->save();
 
             toast('Reservasi sukses','success');
-            return redirect()->route('reservation.index');
+            return redirect('result/'.$invoice);
         } else {
             // Buat Username baru
             $user->name = $req->name;
@@ -136,8 +142,8 @@ class ReservationController extends Controller
             $reservation->book_code = $req->book_code;
             $reservation->room_id = $req->room_id;
             $reservation->user_id = $getUser->id;
-            $reservation->check_in = $req->check_in;
-            $reservation->check_out = $req->check_out;
+            $reservation->check_in = $in;
+            $reservation->check_out = $out;
             $reservation->guest_count = $req->guest_count;
             $reservation->note = $req->note;
             $reservation->validation = "wait";
@@ -149,13 +155,13 @@ class ReservationController extends Controller
             $payment->reservation_id = $getReservation->id;
             $payment->invoice = $req->book_code;
             $payment->payment_type = $req->payment_type;
-            $payment->amount = $req->room_price;
+            $payment->amount = $req->total;
             $payment->remaining_amount = $remaining_amount;
             $payment->payment_status = $payment_status;
             $payment->save();
 
             toast('Reservasi sukses','success');
-            return redirect()->route('reservation.index');
+            return redirect('result/'.$invoice);
         }
     }
 

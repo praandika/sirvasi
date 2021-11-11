@@ -1,25 +1,23 @@
 @extends('layouts.main')
-@section('title','Data Fasilitas')
+@section('title','Reservation History')
 
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Tabel Fasilitas</h3>
+        <h3 class="card-title">Tabel Reservation History</h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-        <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#tambahFasilitas">
-            <i class="fas fa-plus"></i>
-            Tambah
-        </button>
-
         <div class="table-responsive">
             <table id="tabel" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Nama Fasilitas</th>
-                        <th>Aksi</th>
+                        <th>Invoice</th>
+                        <th>Room</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,23 +25,26 @@
                     @forelse($data as $o)
                     <tr>
                         <td>{{ $no++ }}</td>
-                        <td>{{ $o->facility_name }}</td>
-                        <td>
-                            <a href="{{ route('facilities.edit',$o->id) }}" class="btn btn-primary">
-                                <i class="fas fa-pencil-alt"></i> Edit</a>
-                        </td>
+                        <td>{{ $o->book_code }}</td>
+                        <td>{{ $o->room->room_name }}</td>
+                        <td>{{ Carbon\Carbon::parse($o->check_in)->format('D d M Y, H:i') }}</td>
+                        <td>{{ Carbon\Carbon::parse($o->check_out)->format('D d M Y, H:i') }}</td>
+                        <td>{{ $o->reservation_status }}</td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="4" class="text-center">no data available</td>
+                        <td colspan="6" class="text-center">no data available</td>
                     </tr>
                     @endforelse
                 </tbody>
                 <tfoot>
                     <tr>
                         <th>#</th>
-                        <th>Nama Fasilitas</th>
-                        <th>Aksi</th>
+                        <th>Invoice</th>
+                        <th>Room</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Status</th>
                     </tr>
                 </tfoot>
             </table>
@@ -52,8 +53,6 @@
     <!-- /.card-body -->
 </div>
 <!-- /.card -->
-
-@include('admin.component.modal.tambahfasilitas')
 
 @endsection
 

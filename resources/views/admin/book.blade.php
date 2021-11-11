@@ -2,7 +2,7 @@
 @section('title','Reservasi')
 
 @section('content')
-<form action="{{ route('reservation.store') }}" method="POST">
+<form action="{{ route('reservation.store') }}" method="POST" target="_blank">
     @csrf
     <div class="card" id="reservation-card">
         <div class="card-header">
@@ -57,7 +57,7 @@
                             <!-- Check In -->
                             <div class="form-group">
                                 <label for="check_in">Check In</label>
-                                <input type="date" class="form-control" placeholder="YYYY/MM/DD" name="check_in"
+                                <input type="datetime-local" class="form-control" placeholder="YYYY/MM/DD" name="check_in"
                                     id="check_in" value="{{ old('check_in') }}" required>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                             <!-- Check Out -->
                             <div class="form-group">
                                 <label for="check_out">Check Out</label>
-                                <input type="date" class="form-control" placeholder="Check Out" name="check_out"
+                                <input type="datetime-local" class="form-control" placeholder="Check Out" name="check_out"
                                     id="check_out" value="{{ old('check_out') }}" required>
                             </div>
                         </div>
@@ -158,10 +158,19 @@
                         <tr>
                             <td>Jumlah Tamu</td>
                             <td>: <span id="guest_count_input"></span></td>
+                            <input type="hidden" id="guest_count_input">
                         </tr>
                         <tr>
                             <td>Catatan</td>
                             <td>: <textarea id="note_input" readonly></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>PPN</td>
+                            <td>: 10%</td>
+                        </tr>
+                        <tr>
+                            <td>Service Charge</td>
+                            <td>: 10%</td>
                         </tr>
 
                         <tr>
@@ -169,6 +178,7 @@
                                 <h4>Total</h4>
                             </td>
                             <td>: <span id="amount"></span></td>
+                            <input type="hidden" id="total" name="total">
                         </tr>
                         <tr>
                             <td>
@@ -217,6 +227,16 @@
         let note = document.getElementById("note").value;
         let room_price = document.getElementById("room_price").value;
 
+        let i = moment(check_in).format('YYYYMMDD');
+        let o = moment(check_out).format('YYYYMMDD');
+        let nights = o-i;
+
+        let oriprice = room_price*nights;
+        let ppn = oriprice*0.1;
+        let svc = oriprice*0.1;
+
+        let total = oriprice+ppn+svc;
+
         if (name == "" || phone == "" || email == "" || room == "" || check_in == "" || check_out == "" ||
             guest_count == "") {
             alert("Form tidak boleh kosong!");
@@ -229,14 +249,15 @@
             document.getElementById("email_input").innerHTML = email;
             document.getElementById("phone_input").innerHTML = phone;
             document.getElementById("room_input").innerHTML = room;
-            document.getElementById("check_in_input").innerHTML = check_in;
-            document.getElementById("check_out_input").innerHTML = check_out;
+            document.getElementById("check_in_input").innerHTML = moment(check_in).format('dd DD MMM YYYY, H:mm');
+            document.getElementById("check_out_input").innerHTML = moment(check_out).format('dd DD MMM YYYY, H:mm');
             document.getElementById("guest_count_input").innerHTML = guest_count;
             document.getElementById("note_input").value = note;
+            document.getElementById("total").value = total;
             document.getElementById("amount").innerHTML = new Intl.NumberFormat('id-ID', {
                 style: 'currency',
                 currency: 'IDR'
-            }).format(room_price);
+            }).format(total);
 
             let reservasi = document.getElementById("reservation-card");
             let payment = document.getElementById("payment-card");
@@ -246,8 +267,9 @@
     }
 
     function hitung() {
-        let total = document.getElementById("room_price").value;
+        let total = document.getElementById("total").value;
         let bayar = document.getElementById("pay").value;
+        
 
         let sisa = total - bayar;
         document.getElementById("remaining_amount").innerHTML = new Intl.NumberFormat('id-ID', {

@@ -16,7 +16,7 @@ class LandingController extends Controller
         return view('landing', compact('data'));
     }
 
-    public function search(Request $req){
+    public function searchroom(Request $req){
         $data = Room::where([
             ['room_capacity',$req->person],
             ['room_status','available'],
