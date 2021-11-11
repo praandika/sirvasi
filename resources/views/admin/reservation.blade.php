@@ -44,11 +44,24 @@
                                 Detail
                             </button>
                         </td>
+                        @elseif($o->reservation_status == "waiting")
+                        <td>
+                            <form action="{{ route('change.book.status',$o->id) }}" method="POST">
+                            @csrf
+                                <input type="hidden" name="status" value="{{ $o->reservation_status }}">
+                                <input type="hidden" name="id" value="{{ $o->id }}">
+                                <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-login-alt"></i> Check In</button>
+                            </form>
+                        </td>
                         @else
                         <td>
-                            <form action="">
-                                <a href="{{ route('reservation.edit',$o->id) }}" class="btn btn-primary">
-                                <i class="fas fa-logout-alt"></i> Check Out</a>
+                            <form action="{{ route('change.book.status',$o->id) }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="status" value="{{ $o->reservation_status }}">
+                                <input type="hidden" name="id" value="{{ $o->id }}">
+                                <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-logut-alt"></i> Check Out</button>
                             </form>
                         </td>
                         @endif

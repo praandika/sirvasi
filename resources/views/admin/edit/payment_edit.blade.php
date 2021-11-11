@@ -2,7 +2,7 @@
 @section('title','Payment')
 
 @section('content')
-<form action="{{ route('payment.store') }}" method="POST">
+<form action="{{ route('payment.update') }}" method="POST">
     @csrf
     <div class="card" id="payment-card">
         <div class="card-header">
@@ -12,9 +12,15 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-6">
-                    <input type="text" name="id" value="{{ $id }}">
+                    <input type="hidden" name="id" value="{{ $id }}">
                     @foreach($data as $o)
-                    <table>
+                    <input type="hidden" id="room_price" name="room_price" value="{{ $o->remaining_amount }}">
+                    <table class="table table-striped">
+                        <tr>
+                            <td>Invoice #</td>
+                            <td>: {{ $o->invoice }}</td>
+                            <input type="hidden" name="invoice" value="{{ $o->invoice }}">
+                        </tr>
                         <tr>
                             <td>Nama</td>
                             <td>: {{ $o->name }}</td>
@@ -43,7 +49,7 @@
                     <table>
                         <tr>
                             <td>Kamar</td>
-                            <td>: {{ $o->room_name }}</td>
+                            <td>: {{ $o->reservation->room->room_name }}</td>
                         </tr>
                         <tr>
                             <td>Check In</td>
@@ -61,12 +67,12 @@
                             <td>Catatan</td>
                             <td>: {{ $o->note }}</td>
                         </tr>
-                        @endforeach
+                        
                         <tr>
                             <td>
                                 <h4>Total</h4>
                             </td>
-                            <td>: <span id="amount"></span></td>
+                            <td>: <span id="amount">Rp {{ number_format($o->remaining_amount, 0, ',', '.') }}</span></td>
                         </tr>
                         <tr>
                             <td>
@@ -78,18 +84,19 @@
                             <td>
                                 <h4>Sisa</h4>
                             </td>
-                            <td><span id="remaining_amount"></span></td>
+                            <td><span id="remaining_amount">Rp {{ number_format($o->remaining_amount, 0, ',', '.') }}</span></td>
                         </tr>
+                        @endforeach
                         <tr>
                             <td></td>
                             <td>
-                                <h4><span id="payment_status" style="color: red;">UNPAID</span></h4>
+                                <h4><span id="payment_status" style="color: orange;">{{ strtoUpper($o->payment_status) }}</span></h4>
                             </td>
                         </tr>
                     </table>
                 </div>
             </div>
-            <a href="javascript:void(0);" class="btn btn-primary" id="previous" onclick="back()">Kembali</a>
+            
             <button type="submit" class="btn btn-primary">Bayar</button>
         </div>
         <!-- /.card-body -->
@@ -112,8 +119,8 @@
         }).format(sisa);
         if (sisa == total) {
             let ele = document.getElementById("payment_status");
-            ele.innerHTML = "UNPAID";
-            ele.style.color = "red";
+            ele.innerHTML = "PAID HALF";
+            ele.style.color = "orange";
         } else if (sisa == 0) {
             let ele = document.getElementById("payment_status");
             ele.innerHTML = "PAID";
@@ -122,20 +129,9 @@
             let ele = document.getElementById("payment_status");
             ele.innerHTML = "CHANGES";
             ele.style.color = "blue";
-        } else {
-            let ele = document.getElementById("payment_status");
-            ele.innerHTML = "PAID HALF";
-            ele.style.color = "orange";
         }
 
         console.log(total, bayar, sisa);
-    }
-
-    function back(){
-        let reservasi = document.getElementById("reservation-card");
-        let payment = document.getElementById("payment-card");
-        reservasi.classList.remove("d-none");
-        payment.classList.add("d-none");
     }
 
 </script>

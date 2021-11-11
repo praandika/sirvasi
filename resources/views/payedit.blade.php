@@ -23,12 +23,12 @@
                                     </tr>
                                     <tr>
                                         <td>Check In </td>
-                                        <td>: {{ Carbon\Carbon::parse($in)->format('D d M Y H:i') }}</td>
+                                        <td>: {{ Carbon\Carbon::parse($in)->format('D d M Y, H:i') }}</td>
                                         <input type="hidden" value="{{ $in }}" name="in">
                                     </tr>
                                     <tr>
                                         <td>Check Out </td>
-                                        <td>: {{ Carbon\Carbon::parse($out)->format('D d M Y H:i') }}</td>
+                                        <td>: {{ Carbon\Carbon::parse($out)->format('D d M Y, H:i') }}</td>
                                         <input type="hidden" value="{{ $out }}" name="out">
                                     </tr>
                                     <tr>
@@ -91,19 +91,23 @@
                                     <div class="col-lg-12">
                                         <div class="book_tabel_item">
                                             <div class="input-group">
-                                                <select class="wide" name="select_payment"required>
-                                                    <option data-display="Select Payment">Select Payment</option>
+                                                <select class="wide" name="select_payment" required>
+                                                    <option value="select">Select Payment</option>
                                                     <option value="dp">Down Payment</option>
                                                     <option value="fp">Full Payment</option>
                                                 </select>
                                             </div>
                                         </div>
+                                        @if(Session::has('fail'))
+                                                <small style="color: red;">
+                                            {{ Session::get('fail') }}</small>
+                                                @endif
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12 mt-3 mb-3">
                                         <label>Upload your proof of payment</label>
-                                        <small style="color: red;">file type : *jpg, jpeg, png</small>
+                                        <small style="color: #1a69bd;">file type : *jpg, jpeg, png</small>
                                         <div class="book_tabel_item">
                                             <input type="file" name="proof">
                                         </div>

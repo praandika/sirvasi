@@ -41,6 +41,24 @@ class ReservationController extends Controller
         return view('admin.book',compact('user','room','book_code'));
     }
 
+    public function changeBookStatus(Request $req){
+        $status = $req->status;
+        if ($status == "waiting") {
+            $res = Reservation::find($req->id);
+            $res->reservation_status = "arrived";
+            $res->save();
+            toast('Tamu check in','success');
+            return redirect()->back();
+
+        } else if($status == "arrived") {
+            $res = Reservation::find($req->id);
+            $res->reservation_status = "success";
+            $res->save();
+            toast('Tamu check out','success');
+            return redirect()->back();
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -195,6 +213,14 @@ class ReservationController extends Controller
 
         alert()->success('Welcome',Auth::user()->name);
         return redirect()->route('dashboard');
+    }
+
+    public function look($invoice)
+    {
+        $data = Reservation::join('rooms','reservations.room_id','=','rooms.id')
+        ->join('users','reservations.user_id','=','users.id')
+        ->where('book_code',$invoice)->get();
+        return view('admin.lookbook',compact('data'));
     }
     
     /**

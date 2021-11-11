@@ -26,7 +26,7 @@
                with font-awesome or any other icon font library -->
                @if((Auth::user()->access == "user") || (Auth::user()->access == "admin"))
                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('dashboard') }}" class="nav-link">
                     <i class="nav-icon far fa-chart-bar"></i>
                         <p>Dashboard</p>
                     </a>
@@ -89,7 +89,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('validation') }}" class="nav-link">
                     <i class="nav-icon fas fa-check"></i>
                         <p>Validasi</p>
                     </a>
@@ -98,7 +98,7 @@
 
                 @if((Auth::user()->access == "pemimpin") || (Auth::user()->access == "admin"))
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('report') }}" class="nav-link">
                     <i class="nav-icon fas fa-file-alt"></i>
                         <p>Laporan</p>
                     </a>

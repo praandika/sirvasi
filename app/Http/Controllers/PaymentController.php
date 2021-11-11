@@ -28,7 +28,8 @@ class PaymentController extends Controller
     {
         $data = Payment::join('users','payments.user_id','=','users.id')
         ->join('reservations','payments.reservation_id','=','reservations.id')
-        ->orderBy('reservations.check_in','desc')
+        ->select('payments.*','users.name','users.phone','users.address','reservations.check_in','reservations.check_out')
+        ->orderBy('created_at','desc')
         ->get();
 
         return view('admin.payment', compact('data'));
@@ -39,9 +40,9 @@ class PaymentController extends Controller
         $o = Carbon::parse($out)->format('Ymd');
         $i = Carbon::parse($in)->format('Ymd');
         $nights = $o-$i;
-        $ppn = $price*0.1;
-        $svc = $price*0.1;
         $subtotal = $price*$nights;
+        $ppn = $subtotal*0.1;
+        $svc = $subtotal*0.1;
         $total = $subtotal+$ppn+$svc;
         $downpayment = $total*0.5;
 
@@ -86,7 +87,10 @@ class PaymentController extends Controller
             $payment->proof = $file_name;
             $payment->save();
             alert()->success('Payment Success',Auth::user()->name.' we are waiting for you');
-            return redirect()->route('dashboard');
+
+            $invoice = $req->book_code;
+
+            return redirect('print/'.$invoice);
 
         } else if($req->select_payment == "fp"){
             $proof = $req->file('proof');
@@ -107,13 +111,30 @@ class PaymentController extends Controller
             $payment->proof = $file_name;
             $payment->save();
             alert()->success('Payment Success',Auth::user()->name.' we are waiting for you');
+
+            $invoice = $req->book_code;
+
             return redirect()->route('dashboard');
-        } else {
-            alert()->warning('Select payment','Please select payment information');
-            return redirect()->back()->withInput();
+        } else if($req->select_payment == "select") {
+            return redirect()->back()->withFail('*Please select payment information');
         }
-        
-        return redirect()->route('pay.confirm');
+    }
+
+    public function invoice($invoice){
+        $data = Payment::join('users','payments.user_id','=','users.id')
+        ->join('reservations','payments.reservation_id','=','reservations.id')
+        ->where('invoice',$invoice)
+        ->get();
+        return view('invoice', compact('data','invoice'));
+    }
+
+    public function printInvoice($invoice){
+        $data = Payment::join('users','payments.user_id','=','users.id')
+        ->join('reservations','payments.reservation_id','=','reservations.id')
+        ->where('invoice',$invoice)
+        ->get();
+        $pdf = PDF::loadview('print.invoice',compact('data','invoice'));
+        return $pdf->download('Invoice_'.$invoice.'.pdf');
     }
 
     /**
@@ -149,8 +170,7 @@ class PaymentController extends Controller
     }
 
     public function bayar($id){
-        $data = DB::table('payments')
-        ->join('users','payments.user_id','=','users.id')
+        $data = Payment::join('users','payments.user_id','=','users.id')
         ->join('reservations','payments.reservation_id','=','reservations.id')
         ->where('payments.id',$id)
         ->get();
@@ -165,9 +185,33 @@ class PaymentController extends Controller
      * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $req, Payment $payment)
     {
-        //
+        // Hitung Sisa bayar
+        $amount = $req->room_price;
+        $pay = $req->pay;
+        $remaining_amount = $amount - $pay;
+
+        // Menentukan payment status
+        if ($remaining_amount == $amount) {
+            $payment_status = "paid half";
+        } elseif ($remaining_amount == 0) {
+            $payment_status = "paid";
+        } elseif ($remaining_amount < 0) {
+            $payment_status = "paid";
+        }
+
+        $payment = Payment::find($req->id);
+        $payment->remaining_amount = $remaining_amount;
+        $payment->payment_status = $payment_status;
+        $payment->save();
+
+        $res = Reservation::where('book_code',$req->invoice)->update([
+            'reservation_status' => 'arrived',
+        ]);
+
+        toast('Pembayaran sukses','success');
+        return redirect()->route('payment.index');
     }
 
     /**

@@ -30,7 +30,7 @@
                     <tr>
                         <td>{{ $no++ }}</td>
                         <td>{{ $o->payment_status }}</td>
-                        <td><a href="{{ route('reservation.show',$o->reservation_id) }}">{{ $o->book_code }}</a></td>
+                        <td><a href="{{ route('reservation.look',$o->invoice) }}">{{ $o->invoice }}</a></td>
                         <td>{{ $o->name }}</td>
                         <td>{{ $o->check_in }}</td>
                         <td>{{ $o->amount }}</td>

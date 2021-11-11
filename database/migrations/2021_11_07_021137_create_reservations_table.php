@@ -19,8 +19,8 @@ class CreateReservationsTable extends Migration
             $table->unsignedInteger('room_id');
             $table->string('book_code')->nullable();
             $table->integer('guest_count');
-            $table->date('check_in');
-            $table->date('check_out');
+            $table->dateTime('check_in');
+            $table->dateTime('check_out');
             $table->enum('reservation_status',['waiting','arrived','success','cancel']);
             $table->enum('validation',['wait','no','yes']);
             $table->text('note')->nullable();

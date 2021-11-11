@@ -28,8 +28,8 @@
                         <td>{{ $no++ }}</td>
                         <td>{{ $o->book_code }}</td>
                         <td>{{ $o->room->room_name }}</td>
-                        <td>{{ $o->check_in }}</td>
-                        <td>{{ $o->check_out }}</td>
+                        <td>{{ Carbon\Carbon::parse($o->check_in)->format('D d M Y, H:i') }}</td>
+                        <td>{{ Carbon\Carbon::parse($o->check_out)->format('D d M Y, H:i') }}</td>
                         <td>
                             <form action="{{ route('validation.process') }}" method="post">
                                 @csrf

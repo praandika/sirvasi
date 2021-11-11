@@ -24,6 +24,8 @@
         </style>
     </head>
     <body>
+        @include('sweetalert::alert')
+        
         @yield('landing-content')
         
         <!-- Optional JavaScript -->
@@ -40,13 +42,5 @@
         <script src="{{ asset('js/stellar.js') }}"></script>
         <script src="{{ asset('vendors/lightbox/simpleLightbox.min.js') }}"></script>
         <script src="{{ asset('js/custom.js') }}"></script>
-        <script>
-            $( function() {
-                $( "#datepicker" ).datepicker();
-            } );
-            $( function() {
-                $( "#datepicker2" ).datepicker();
-            } );
-        </script>
     </body>
 </html>

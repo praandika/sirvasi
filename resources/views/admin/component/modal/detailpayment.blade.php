@@ -14,7 +14,7 @@
                             <!-- Kode Reservasi -->
                             <h3>
                                 #Transaksi : 
-                                <a href="{{ route('reservation.show',$o->id) }}">{{ $o->book_code }}</a>
+                                <a href="{{ route('reservation.look',$o->invoice) }}">{{ $o->invoice }}</a>
                             </h3>
                             
                         </div>
@@ -55,8 +55,8 @@
                                 <td>: {{ $o->payment_type }}</td>
                             </tr>
                             <tr>
-                                <td>Total</td>
-                                <td>: <h3>{{ $o->amount }}</h3></td>
+                                <td> <h3>Total </h3></td>
+                                <td><h3>: {{ $o->amount }}</h3></td>
                             </tr>
                         </table>
                     </div>

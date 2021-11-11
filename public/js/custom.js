@@ -62,7 +62,7 @@
     
     $('select').niceSelect();
     $('#datetimepicker11,#datetimepicker1').datetimepicker({
-        daysOfWeekDisabled: [0, 6]
+        startDate: new Date()
     });
     
      /*---------gallery isotope js-----------*/
@@ -301,7 +301,3 @@
     }
 
 })(jQuery)
-
-function payment() {
-    document.getElementById("result").value = "tes";
-}

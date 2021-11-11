@@ -73,7 +73,10 @@ Route::post('media/{id}/{room}/update', [App\Http\Controllers\MediaController::c
 
 // Pemesanan
 Route::resource('reservation', App\Http\Controllers\ReservationController::class);
+Route::get('reservation/look/{invoice}', [App\Http\Controllers\ReservationController::class, 'look'])->name('reservation.look');
 Route::get('/book', [App\Http\Controllers\ReservationController::class, 'book'])->name('reservation.book');
+
+Route::post('changebookstatus', [App\Http\Controllers\ReservationController::class, 'changeBookStatus'])->name('change.book.status');
 // END Pemesanan
 
 // Transaksi
@@ -81,7 +84,7 @@ Route::resource('payment', App\Http\Controllers\PaymentController::class);
 
 Route::get('bayar/{id}', [App\Http\Controllers\PaymentController::class, 'bayar'])->name('payment.bayar');
 
-Route::post('payment/store', [App\Http\Controllers\PaymentController::class, 'store'])->name('payment.store');
+Route::post('payment/update', [App\Http\Controllers\PaymentController::class, 'update'])->name('payment.update');
 // END Transaksi
 
 // Validasi
@@ -115,3 +118,16 @@ Route::post('/paybook', [App\Http\Controllers\ReservationController::class, 'pay
 Route::resource('media', App\Http\Controllers\MediaController::class);
 // END Media
 
+// Laporan
+Route::get('report', [App\Http\Controllers\ReportController::class, 'index'])->name('report');
+
+Route::get('search', [App\Http\Controllers\ReportController::class, 'search'])->name('search');
+
+Route::get('export/excel/{awal}/{akhir}', [App\Http\Controllers\ReportController::class, 'exportExcel'])->name('export');
+// END Laporan
+
+// Invoice
+Route::get('result/{invoice}', [App\Http\Controllers\PaymentController::class, 'invoice']);
+
+Route::get('print/{invoice}', [App\Http\Controllers\PaymentController::class, 'printInvoice'])->name('print.invoice');
+// END Invoice
