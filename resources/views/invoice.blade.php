@@ -2,7 +2,6 @@
 @section('landing-content')
 
 @include('component.header')
-<!--================ Accomodation Area  =================-->
 <section class="accomodation_area section_gap">
     <div class="container">
         <div class="row">
@@ -73,6 +72,5 @@
         </div>
     </div>
 </section>
-<!--================ Accomodation Area  =================-->
 @include('component.footer')
 @endsection

@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{ asset('photos/icon/icon-naradas.png') }}" type="image/png">
     @stack('after-meta')
     
     <title>@yield('title')</title>

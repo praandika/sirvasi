@@ -34,23 +34,23 @@
                         <table>
                             <tr>
                                 <td>Tanggal Cancel</td>
-                                <td>{{ $o->updated_at }}</td>
+                                <td>: {{ $o->updated_at }}</td>
                             </tr>
                             <tr>
                                 <td>Nama</td>
-                                <td>{{ $o->name }}</td>
+                                <td>: {{ $o->name }}</td>
                             </tr>
                             <tr>
                                 <td>Kontak</td>
-                                <td>{{ $o->phone }}</td>
+                                <td>: {{ $o->phone }}</td>
                             </tr>
                             <tr>
                                 <td>Negara</td>
-                                <td>{{ $o->country }}</td>
+                                <td>: {{ $o->country }}</td>
                             </tr>
                             <tr>
                                 <td>Alamat</td>
-                                <td>{{ $o->address }}</td>
+                                <td>: {{ $o->address }}</td>
                             </tr>
                         </table>
                     </div>

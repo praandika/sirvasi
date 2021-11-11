@@ -40,7 +40,7 @@
                         <td>
                             <button type="button" class="btn btn-success mb-3" data-toggle="modal"
                                 data-target="#detailReservation{{ $o->id }}">
-                                <i class="fas fa-eyes"></i>
+                                <i class="fas fa-eye"></i>
                                 Detail
                             </button>
                         </td>

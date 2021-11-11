@@ -2,7 +2,7 @@
 @section('title','Payment')
 
 @section('content')
-<form action="{{ route('payment.update') }}" method="POST">
+<form action="{{ route('payment.update') }}" method="POST" target="_blank">
     @csrf
     <div class="card" id="payment-card">
         <div class="card-header">
@@ -86,7 +86,7 @@
                             </td>
                             <td><span id="remaining_amount">Rp {{ number_format($o->remaining_amount, 0, ',', '.') }}</span></td>
                         </tr>
-                        @endforeach
+                        
                         <tr>
                             <td></td>
                             <td>
@@ -96,8 +96,12 @@
                     </table>
                 </div>
             </div>
-            
+            @if($o->remaining_amount == 0)
+            <button type="submit" class="btn btn-primary" disabled>Bayar</button>
+            @else
             <button type="submit" class="btn btn-primary">Bayar</button>
+            @endif
+            @endforeach
         </div>
         <!-- /.card-body -->
     </div>

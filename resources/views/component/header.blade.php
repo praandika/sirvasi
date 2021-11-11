@@ -3,7 +3,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <a class="navbar-brand logo_h" href="{{ route('landing.page') }}"> <strong style="font-weight: bold;">Naradas Sambali</strong></a>
+            <a class="navbar-brand logo_h" href="{{ route('landing.page') }}"><img src="{{ asset('photos/icon/icon-naradas.png') }}" alt=""> <strong style="font-weight: bold;">Naradas Sambali</strong></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="icon-bar"></span>

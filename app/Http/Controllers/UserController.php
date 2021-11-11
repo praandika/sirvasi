@@ -39,7 +39,8 @@ class UserController extends Controller
                 $data->username = $req->username;
                 $data->phone = $req->phone;
                 $data->access = $req->access;
-                $data->password = $req->password;
+                $data->password = bcrypt($req->password);
+                $data->avatar = 'icon-user.png';
                 $data->save();
                 toast('Data berhasil disimpan','success');
                 return redirect()->back();

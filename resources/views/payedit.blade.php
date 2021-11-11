@@ -2,7 +2,6 @@
 @section('landing-content')
 
 @include('component.header')
-<!--================ Accomodation Area  =================-->
 <section class="accomodation_area section_gap">
     <div class="container">
         <form action="{{ route('payment') }}" method="post" enctype="multipart/form-data">
@@ -141,6 +140,5 @@
         </form>
     </div>
 </section>
-<!--================ Accomodation Area  =================-->
 @include('component.footer')
 @endsection

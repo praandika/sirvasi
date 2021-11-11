@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\BookingDetail;
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 
@@ -25,7 +24,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('12345678'),
                 'phone' => '081246571421',
                 'access' => 'admin',
-                'created_at' => Carbon::now('GMT+8')->format('Y-m-d H:i:s'),
+                'avatar' => 'icon-user.png',
             ],
             [
                 'name' => 'Administrator',
@@ -35,7 +34,17 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('12345678'),
                 'phone' => '081081081081',
                 'access' => 'admin',
-                'created_at' => Carbon::now('GMT+8')->format('Y-m-d H:i:s'),
+                'avatar' => 'icon-user.png',
+            ],
+            [
+                'name' => 'Pimpinan',
+                'username' => 'head',
+                'email' => 'head@gmail.com',
+                'email_verified_at' => Carbon::now('GMT+8')->format('Y-m-d H:i:s'),
+                'password' => bcrypt('12345678'),
+                'phone' => '08108097889',
+                'access' => 'head',
+                'avatar' => 'icon-user.png',
             ],
         ]);
 
@@ -44,6 +53,8 @@ class DatabaseSeeder extends Seeder
             FacilitySeeder::class,
             MediaSeeder::class,
             RoomFacilitySeeder::class,
+            PaymentSeeder::class,
+            ReservationSeeder::class,
         ]);
     }
 }

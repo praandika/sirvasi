@@ -12,6 +12,11 @@ class MediaController extends Controller
         $this->middleware('auth');
     }
 
+    public function index(){
+        $data = Media::all();
+        return view('media', compact('data'));
+    }
+
     public function show($room_id){
         $data = Media::join('rooms','media.room_id','=','rooms.id')
         ->where('room_id',$room_id)

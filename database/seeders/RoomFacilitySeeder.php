@@ -27,6 +27,39 @@ class RoomFacilitySeeder extends Seeder
                 'room_id' => 3,
                 'facilities_id' => 6,
             ],
+            [
+                'room_id' => 1,
+                'facilities_id' => 4,
+            ],
+
+            [
+                'room_id' => 1,
+                'facilities_id' => 5,
+            ],
+            [
+                'room_id' => 1,
+                'facilities_id' => 6,
+            ],
+            [
+                'room_id' => 1,
+                'facilities_id' => 7,
+            ],
+            [
+                'room_id' => 2,
+                'facilities_id' => 2,
+            ],
+            [
+                'room_id' => 2,
+                'facilities_id' => 3,
+            ],
+            [
+                'room_id' => 2,
+                'facilities_id' => 4,
+            ],
+            [
+                'room_id' => 2,
+                'facilities_id' => 7,
+            ],
         ]);
     }
 }

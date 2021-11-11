@@ -41,7 +41,7 @@
                         <td>
                             <button type="button" class="btn btn-success mb-3" data-toggle="modal"
                                 data-target="#detailPayment{{ $o->id }}">
-                                <i class="fas fa-eyes"></i>
+                                <i class="fas fa-eye"></i>
                                 Detail
                             </button>
                         </td>
