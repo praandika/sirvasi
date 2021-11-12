@@ -143,7 +143,7 @@
                                     class="far fa-laugh-wink"></i> Pay</a>
                             @else
                             <button class="btn btn-success" data-toggle="tooltip" data-placement="top"
-                                title="Happy holiday!"><i class="far fa-smile-wink"></i> Full booked</button>
+                                title="Happy holiday!"><i class="far fa-smile-wink"></i> Happy Holiday</button>
                             @endif
                         </td>
                     </tr>
