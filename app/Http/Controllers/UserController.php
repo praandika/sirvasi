@@ -80,7 +80,8 @@ class UserController extends Controller
             $data->password = bcrypt($new);
             $data->save();
             toast('Password changed','success');
-            return redirect()->route('admin.data');
+            Auth::logout();
+            return redirect()->route('login');
         } else {
             alert()->warning('Warning','Password salah!');
             return redirect()->back()->withInput();

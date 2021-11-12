@@ -65,6 +65,7 @@
         <!-- /.content-wrapper -->
 
         @include('admin.component.footer')
+        @include('admin.component.modal.adminpass')
         
     </div>
     <!-- ./wrapper -->
