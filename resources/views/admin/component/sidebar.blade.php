@@ -102,10 +102,28 @@
 
                 @if((Auth::user()->access == "head") || (Auth::user()->access == "admin"))
                 <li class="nav-item">
-                    <a href="{{ route('report') }}" class="nav-link">
-                    <i class="nav-icon fas fa-file-alt"></i>
-                        <p>Laporan</p>
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-file-alt"></i>
+                        <p>
+                            Laporan
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('report') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Laporan Reservasi</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('report.income') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Laporan Pendapatan</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 @endif
 

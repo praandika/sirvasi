@@ -124,6 +124,12 @@ Route::get('report', [App\Http\Controllers\ReportController::class, 'index'])->n
 Route::get('search', [App\Http\Controllers\ReportController::class, 'search'])->name('search');
 
 Route::get('export/excel/{awal}/{akhir}', [App\Http\Controllers\ReportController::class, 'exportExcel'])->name('export');
+
+Route::get('report-income', [App\Http\Controllers\ReportController::class, 'indexIncome'])->name('report.income');
+
+Route::get('search-income', [App\Http\Controllers\ReportController::class, 'searchIncome'])->name('search.income');
+
+Route::get('export-income/excel/{awal}/{akhir}', [App\Http\Controllers\ReportController::class, 'exportExcelIncome'])->name('export.income');
 // END Laporan
 
 // Invoice

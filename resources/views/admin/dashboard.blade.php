@@ -279,6 +279,14 @@
             <div id="chart" style="height: 300px;"></div>
         </div>
     </div>
+
+<!-- Chart's container -->
+    <div class="card">
+        <div class="card-body">
+        <h5 class="card-title">Income {{ $yearNow }} vs {{ $yearLast }}</h5>
+            <div id="chartIncome" style="height: 300px;"></div>
+        </div>
+    </div>
 @endif
 @endsection
 
@@ -293,6 +301,17 @@
         el: '#chart',
         url: '@chart("reservation_chart")',
         hooks: new ChartisanHooks()
+        .legend({ position: 'bottom' })
+    });
+
+</script>
+
+<script>
+    const chartIncome = new Chartisan({
+        el: '#chartIncome',
+        url: '@chart("income_chart")',
+        hooks: new ChartisanHooks()
+        .colors(['#ECC94B', '#4299E1'])
         .legend({ position: 'bottom' })
     });
 

@@ -9,6 +9,9 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card">
+                        @if($isFull > 0)
+                            <div style="padding: 20px; color: red;">Full Booked on this date, Please choose another date </div>
+                        @endif
                         <div class="card-body">
                             <input type="hidden" value="{{ $id }}" name="id">
                             <input type="hidden" name="person" value="{{ $person }}">
@@ -66,7 +69,7 @@
                                 <div class="col">
                                     <label for="phone">Phone</label>
                                     <input type="text" id="phone" class="form-control" placeholder="Enter phone number"
-                                        value="{{ Auth::user()->phone }}" name="phone">
+                                        value="{{ Auth::user()->phone }}" name="phone" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -78,7 +81,7 @@
                                 <div class="col">
                                     <label for="address">Address</label>
                                     <input type="text" id="address" class="form-control"
-                                        placeholder="Enter your address" value="{{ Auth::user()->address }}" name="address">
+                                        placeholder="Enter your address" value="{{ Auth::user()->address }}" name="address" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -106,7 +109,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                 <div class="book_tabel_item">
-                                <button type="submit" class="book_now_btn button_hover">Send Booking Request</button>
+                                <button type="submit" class="book_now_btn button_hover" id="btnSubmit" @if($isFull > 0) style="cursor: no-drop; background-color: grey;" disabled @endif>@if($isFull > 0) Full Booked @else Send Booking Request @endif</button>
                                 </div>
                                 </div>
                             </div>

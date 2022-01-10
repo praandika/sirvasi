@@ -1,0 +1,21 @@
+System required:
+- XAMPP v7.4
+- Composer v2.1
+- Laravel 8
+- Visual Studio Code
+
+Tips:
+- Extract file program ke Folder (xampp/htdocs/)
+- Start Apache dan MySQL di Xampp
+- Akses localhost:8000/phpmyadmin atau 127.0.0.1:8000/phpmyadmin
+- Buat database dengan nama (db_sirvasi)
+- Jika mau ganti nama database bisa ganti di file (.env)
+- Buka folder program menggunakan Visual Studio Code
+- Pilih menu (Terminal -> New Terminal)
+- Cek versi composer ketik (composer -v) / kalo composer gak terdeteksi install dulu, https://getcomposer.org/
+- ketik (php artisan migrate --seed) untuk insert data dummy
+- jalankan aplikasi ketik (php artisan serve)
+- akses sesuai url yang tampil di terminal
+
+
+Suksma

@@ -93,16 +93,19 @@ class HomeController extends Controller
             $sum_paid = Payment::join('reservations','payments.reservation_id','=','reservations.id')
             ->where('payment_status','paid')
             ->whereMonth('reservations.check_in',$monthNow)
+            ->whereYear('reservations.check_in',$yearNow)
             ->sum('amount');
 
             $sum_half = Payment::join('reservations','payments.reservation_id','=','reservations.id')
             ->where('payment_status','paid half')
             ->whereMonth('reservations.check_in',$monthNow)
+            ->whereYear('reservations.check_in',$yearNow)
             ->sum('remaining_amount');
 
             $sum_unpaid = Payment::join('reservations','payments.reservation_id','=','reservations.id')
             ->where('payment_status','unpaid')
             ->whereMonth('reservations.check_in',$monthNow)
+            ->whereYear('reservations.check_in',$yearNow)
             ->sum('amount');
 
             $yearLast = $yearNow-1;

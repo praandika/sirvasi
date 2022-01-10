@@ -9,6 +9,9 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card">
+                        @if(Session::has('full'))
+                            <div style="padding: 20px; color: red;">Full Booked on this date, Please choose another date </div>
+                        @endif
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -16,7 +19,7 @@
                                         <div class="form-group">
                                             <div class='input-group date' id='datetimepicker11'>
                                                 <input type='text' class="form-control" placeholder="Check in"
-                                                    name="in" />
+                                                    name="in" required/>
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-calendar" aria-hidden="true"></i>
                                                 </span>
@@ -25,7 +28,7 @@
                                         <div class="form-group">
                                             <div class='input-group date' id='datetimepicker11'>
                                                 <input type='text' class="form-control" placeholder="Check Out"
-                                                    name="out" />
+                                                    name="out" required/>
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-calendar" aria-hidden="true"></i>
                                                 </span>
@@ -38,7 +41,7 @@
                                         <div class="form-group">
                                             <div class='input-group'>
                                                 <input type='number' class="form-control" placeholder="Number of guest"
-                                                    name="person" />
+                                                    name="person" required/>
                                                 <span class="input-group-addon">
                                                     <i class="fa fa-users" aria-hidden="true"></i>
                                                 </span>
@@ -74,7 +77,7 @@
                                 <div class="col">
                                     <label for="phone">Phone</label>
                                     <input type="text" id="phone" class="form-control" placeholder="Enter phone number"
-                                        value="{{ Auth::user()->phone }}" name="phone">
+                                        value="{{ Auth::user()->phone }}" value="{{ old('phone') }}" name="phone" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -87,7 +90,7 @@
                                     <label for="address">Address</label>
                                     <input type="text" id="address" class="form-control"
                                         placeholder="Enter your address" value="{{ Auth::user()->address }}"
-                                        name="address">
+                                        name="address" value="{{ old('address') }}" required>
                                 </div>
                             </div>
                             <div class="row mb-3">

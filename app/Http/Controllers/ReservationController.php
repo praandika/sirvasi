@@ -176,12 +176,15 @@ class ReservationController extends Controller
         $total = $subtotal+$ppn+$svc;
 
         $data = Room::find($id);
+
+        $isFull = Reservation::where('room_id', $id)->whereBetween('check_in', [$in, $out])->count();
+
         $facilities = RoomFacilities::join('facilities','room_facilities.facilities_id','=','facilities.id')
         ->join('rooms','room_facilities.room_id','=','rooms.id')
         ->where('room_facilities.room_id',$id)
         ->get();
 
-        return view('detail', compact('in','out','id','price','room','total','data','facilities','person'));
+        return view('detail', compact('in','out','id','price','room','total','data','facilities','person','isFull'));
     }
 
     public function bookNow($id, $price, $room){
@@ -200,25 +203,31 @@ class ReservationController extends Controller
         $now = Carbon::now('GMT+8')->format('YmdHis');
         $book_code = "Book".$now."";
 
-        User::where('email',Auth::user()->email)
-        ->update([
-            'phone' => $req->phone,
-            'address' => $req->address,
-        ]);
+        $isFull = Reservation::where('room_id', $req->id)->whereBetween('check_in', [$req->in, $req->out])->count();
 
-        $reservation = New Reservation;
-        $reservation->book_code = $book_code;
-        $reservation->room_id = $req->id;
-        $reservation->user_id = Auth::user()->id;
-        $reservation->check_in = $req->in;
-        $reservation->check_out = $req->out;
-        $reservation->guest_count = $req->person;
-        $reservation->note = $req->note;
-        $reservation->validation = "wait";
-        $reservation->save();
+        if ($isFull > 0) {
+            return redirect()->back()->with('full',true)->withInput();
+        } else {
+            User::where('email',Auth::user()->email)
+            ->update([
+                'phone' => $req->phone,
+                'address' => $req->address,
+            ]);
 
-        alert()->success('Welcome',Auth::user()->name);
-        return redirect()->route('dashboard');
+            $reservation = New Reservation;
+            $reservation->book_code = $book_code;
+            $reservation->room_id = $req->id;
+            $reservation->user_id = Auth::user()->id;
+            $reservation->check_in = $req->in;
+            $reservation->check_out = $req->out;
+            $reservation->guest_count = $req->person;
+            $reservation->note = $req->note;
+            $reservation->validation = "wait";
+            $reservation->save();
+
+            alert()->success('Welcome',Auth::user()->name);
+            return redirect()->route('dashboard');
+        }
     }
 
     public function look($invoice)
