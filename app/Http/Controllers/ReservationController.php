@@ -54,6 +54,19 @@ class ReservationController extends Controller
             $res = Reservation::find($req->id);
             $res->reservation_status = "success";
             $res->save();
+
+            // Cek Room
+            $isFull = Reservation::where('room_id', $res->room_id)->where('check_in', 'like', '%'.Carbon::parse($res->check_in)->format("Y-m-d").'%')->where('reservation_status','!=','success')->count();
+            if ($isFull < 5) {
+                $updateRoom = Room::where('id',$res->room_id)->first();
+                $updateRoom->room_status = 'available';
+                $updateRoom->save();
+            } else {
+                $updateRoom = Room::where('id',$res->room_id)->first();
+                $updateRoom->room_status = 'occupied';
+                $updateRoom->save();
+            }
+            
             toast('Tamu check out','success');
             return redirect()->back();
         }
@@ -177,7 +190,8 @@ class ReservationController extends Controller
 
         $data = Room::find($id);
 
-        $isFull = Reservation::where('room_id', $id)->whereBetween('check_in', [$in, $out])->count();
+        $isFull = Reservation::where('room_id', $id)->where('check_in', 'like', '%'.Carbon::parse($in)->format("Y-m-d").'%')->where('reservation_status','!=','success')->count();
+        // dd($isFull);
 
         $facilities = RoomFacilities::join('facilities','room_facilities.facilities_id','=','facilities.id')
         ->join('rooms','room_facilities.room_id','=','rooms.id')
@@ -203,9 +217,12 @@ class ReservationController extends Controller
         $now = Carbon::now('GMT+8')->format('YmdHis');
         $book_code = "Book".$now."";
 
-        $isFull = Reservation::where('room_id', $req->id)->whereBetween('check_in', [$req->in, $req->out])->count();
+        $isFull = Reservation::where('room_id', $req->id)->where('check_in', 'like', '%'.Carbon::parse($req->in)->format("Y-m-d").'%')->where('reservation_status','!=','success')->count();
 
-        if ($isFull > 0) {
+        if ($isFull >= 5) {
+            $updateRoom = Room::where('id',$req->id)->first();
+            $updateRoom->room_status = 'occupied';
+            $updateRoom->save();
             return redirect()->back()->with('full',true)->withInput();
         } else {
             User::where('email',Auth::user()->email)
@@ -224,6 +241,18 @@ class ReservationController extends Controller
             $reservation->note = $req->note;
             $reservation->validation = "wait";
             $reservation->save();
+
+            $isFull = Reservation::where('room_id', $req->id)->where('check_in', 'like', '%'.Carbon::parse($req->in)->format("Y-m-d").'%')->where('reservation_status','!=','success')->count();
+            
+            if ($isFull >= 5) {
+                $updateRoom = Room::where('id',$req->id)->first();
+                $updateRoom->room_status = 'occupied';
+                $updateRoom->save();
+            } else {
+                $updateRoom = Room::where('id',$req->id)->first();
+                $updateRoom->room_status = 'available';
+                $updateRoom->save();
+            }
 
             alert()->success('Welcome',Auth::user()->name);
             return redirect()->route('dashboard');

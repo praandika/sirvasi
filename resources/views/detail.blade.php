@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card">
-                        @if($isFull > 0)
+                        @if($isFull >= 5)
                             <div style="padding: 20px; color: red;">Full Booked on this date, Please choose another date </div>
                         @endif
                         <div class="card-body">
@@ -109,7 +109,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                 <div class="book_tabel_item">
-                                <button type="submit" class="book_now_btn button_hover" id="btnSubmit" @if($isFull > 0) style="cursor: no-drop; background-color: grey;" disabled @endif>@if($isFull > 0) Full Booked @else Send Booking Request @endif</button>
+                                <button type="submit" class="book_now_btn button_hover" id="btnSubmit" @if($isFull >= 5) style="cursor: no-drop; background-color: grey;" disabled @endif>@if($isFull >= 5) Full Booked @else Send Booking Request @endif</button>
                                 </div>
                                 </div>
                             </div>
